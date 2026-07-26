@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晃広 & まどか Wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FBF8F2;
+    --ivory-deep:#F5EEE3;
+    --sage:#8C9C7E;
+    --sage-deep:#5C6B4F;
+    --rose:#D9A6A0;
+    --rose-deep:#B97D77;
+    --gold:#C6A25B;
+    --ink:#3E4A3D;
+    --ink-soft:#6b7565;
+    --line-green:#06C755;
+    --serif-jp: 'Shippori Mincho', serif;
+    --serif-en: 'Cormorant Garamond', serif;
+    --sans-jp: 'Zen Kaku Gothic New', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:var(--sans-jp);
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+
+  .wrap{max-width:640px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- shared type ---------- */
+  .eyebrow{
+    font-family:var(--serif-en);
+    font-style:italic;
+    letter-spacing:.14em;
+    color:var(--rose-deep);
+    font-size:15px;
+    text-transform:uppercase;
+  }
+  h2{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:26px;
+    letter-spacing:.06em;
+    color:var(--ink);
+    margin:10px 0 6px;
+  }
+  .lead{color:var(--ink-soft);font-size:15px;margin:0 0 34px;}
+
+  .divider{width:100%;display:flex;justify-content:center;margin:6px 0 30px;opacity:.85;}
+  .divider svg{width:120px;height:28px;}
+
+  section{padding:78px 0;position:relative;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 24px;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(217,166,160,.18), transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(140,156,126,.16), transparent 55%),
+      var(--ivory);
+    position:relative;
+    overflow:hidden;
+  }
+  .wreath-wrap{
+    position:relative;
+    width:min(78vw, 380px);
+    aspect-ratio:1/1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .wreath-wrap svg{width:100%;height:100%;position:absolute;inset:0;}
+  .hero-inner{position:relative;z-index:2;padding:0 20px;}
+  .hero-date{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:14px;
+    letter-spacing:.22em;
+    color:var(--sage-deep);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .hero-names{
+    font-family:var(--serif-en);
+    font-size:clamp(30px,7vw,42px);
+    font-weight:500;
+    color:var(--ink);
+    letter-spacing:.03em;
+    line-height:1.25;
+  }
+  .hero-names .amp{
+    display:inline-block;
+    color:var(--rose-deep);
+    font-style:italic;
+    margin:0 10px;
+    font-size:.85em;
+  }
+  .hero-sub{
+    font-family:var(--serif-jp);
+    font-size:14px;
+    color:var(--ink-soft);
+    letter-spacing:.18em;
+    margin-top:14px;
+  }
+  .scroll-cue{
+    position:absolute;
+    bottom:26px;left:50%;
+    transform:translateX(-50%);
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:12px;
+    letter-spacing:.2em;
+    color:var(--ink-soft);
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .scroll-cue .line{width:1px;height:26px;background:var(--sage);animation:pulse 2.2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+  /* ---------- message ---------- */
+  .message{text-align:center;}
+  .message blockquote{
+    margin:0 auto;
+    max-width:420px;
+    font-family:var(--serif-jp);
+    font-size:19px;
+    color:var(--ink);
+    line-height:2;
+    font-weight:500;
+    position:relative;
+  }
+  .message .signoff{
+    display:block;
+    margin-top:22px;
+    font-family:var(--serif-en);
+    font-style:italic;
+    color:var(--rose-deep);
+    font-size:16px;
+    letter-spacing:.05em;
+  }
+
+  /* ---------- info card ---------- */
+  .card{
+    background:var(--ivory-deep);
+    border-radius:22px;
+    padding:34px 28px;
+    border:1px solid rgba(140,156,126,.25);
+  }
+  .info-row{
+    display:flex;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid rgba(140,156,126,.22);
+  }
+  .info-row:last-of-type{border-bottom:none;}
+  .info-label{
+    flex:0 0 84px;
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:13px;
+    color:var(--sage-deep);
+    letter-spacing:.05em;
+    padding-top:2px;
+  }
+  .info-value{flex:1;font-size:15px;color:var(--ink);}
+  .venue-name{font-family:var(--serif-jp);font-weight:600;font-size:17px;margin-bottom:4px;}
+  .venue-sub{color:var(--ink-soft);font-size:13px;}
+  .map-btn{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 26px;
+    border-radius:999px;
+    background:transparent;
+    border:1px solid var(--sage-deep);
+    color:var(--sage-deep);
+    font-size:14px;
+    text-decoration:none;
+    font-family:var(--sans-jp);
+    letter-spacing:.03em;
+    transition:background .25s ease, color .25s ease;
+  }
+  .map-btn:hover{background:var(--sage-deep);color:#fff;}
+
+  /* ---------- timeline ---------- */
+  .timeline{position:relative;padding-left:6px;}
+  .vine{position:absolute;left:29px;top:6px;bottom:6px;width:2px;}
+  .vine svg{width:2px;height:100%;overflow:visible;}
+  .t-item{
+    position:relative;
+    display:flex;
+    gap:22px;
+    padding-bottom:44px;
+  }
+  .t-item:last-child{padding-bottom:0;}
+  .t-node{
+    flex:0 0 60px;
+    display:flex;flex-direction:column;align-items:center;
+    position:relative;
+    z-index:2;
+  }
+  .t-dot{
+    width:14px;height:14px;border-radius:50%;
+    background:var(--ivory);
+    border:2px solid var(--rose-deep);
+    margin-top:4px;
+  }
+  .t-time{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:14px;
+    color:var(--sage-deep);
+    white-space:nowrap;
+    margin-top:8px;
+  }
+  .t-body{padding-top:0;}
+  .t-title{font-family:var(--serif-jp);font-weight:600;font-size:17px;margin-bottom:4px;}
+  .t-desc{font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- notice ---------- */
+  .notice{
+    background:linear-gradient(135deg, rgba(217,166,160,.14), rgba(140,156,126,.10));
+    border-radius:22px;
+    padding:32px 28px;
+    text-align:center;
+  }
+  .notice p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+  .notice .notice-title{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:17px;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+
+  /* ---------- line section ---------- */
+  .line-card{
+    text-align:center;
+    background:var(--ivory-deep);
+    border-radius:22px;
+    padding:40px 28px;
+    border:1px solid rgba(140,156,126,.25);
+  }
+  .line-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--line-green);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    padding:15px 34px;
+    border-radius:999px;
+    text-decoration:none;
+    margin-top:22px;
+    box-shadow:0 10px 24px rgba(6,199,85,.25);
+    transition:transform .2s ease;
+  }
+  .line-btn:hover{transform:translateY(-2px);}
+  .line-btn svg{width:20px;height:20px;}
+  .qr-box{
+    width:132px;height:132px;
+    margin:26px auto 0;
+    border-radius:16px;
+    background:#fff;
+    border:1px dashed rgba(140,156,126,.5);
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;
+    color:var(--ink-soft);
+    text-align:center;
+    padding:10px;
+  }
+
+  footer{
+    text-align:center;
+    padding:60px 24px 50px;
+  }
+  footer .fmark{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:15px;
+    color:var(--rose-deep);
+    letter-spacing:.1em;
+  }
+  footer .fdate{
+    margin-top:6px;
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:.08em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{transition:none;opacity:1;transform:none;}
+    .scroll-cue .line{animation:none;}
+    .leaf-sway{animation:none !important;}
+  }
+
+  @media (max-width:420px){
+    .info-label{flex-basis:66px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wreath-wrap" aria-hidden="true">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke-linecap="round">
+        <!-- wreath generated by script below -->
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-date">2026 . 10 . 08 &nbsp;Thursday</div>
+    <div class="hero-names">晃広<span class="amp">&amp;</span>まどか</div>
+    <div class="hero-sub">結 婚 式 の ご 案 内</div>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+</section>
+
+<!-- ================= MESSAGE ================= -->
+<section class="message reveal">
+  <div class="wrap">
+    <div class="divider" id="divider-1"></div>
+    <blockquote>
+      このたび私たちの結婚式にお越しいただき、<br>
+      誠にありがとうございます。<br><br>
+      今日は楽しんでいってね〜
+      <span class="signoff">Akihiro &amp; Madoka</span>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ================= DATE & VENUE ================= -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Date &amp; Venue</div>
+    <h2>日時・会場</h2>
+    <p class="lead">当日お待ちしております。</p>
+
+    <div class="card">
+      <div class="info-row">
+        <div class="info-label">Date</div>
+        <div class="info-value">2026年10月8日(木)<br>挙式 12:30〜</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Venue</div>
+        <div class="info-value">
+          <div class="venue-name">NEEDS さいたま新都心<br>by T&amp;G Wedding</div>
+          <div class="venue-sub">(旧:ガーデンヒルズ迎賓館 大宮)</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Address</div>
+        <div class="info-value">埼玉県さいたま市大宮区<br>吉敷町四丁目230-1</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Tel</div>
+        <div class="info-value">048-658-0440</div>
+      </div>
+      <a class="map-btn" id="map-link" href="#" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        地図を開く
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TIMELINE ================= -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Time Schedule</div>
+    <h2>当日の流れ</h2>
+    <p class="lead">一日のスケジュールです。お時間に余裕を持ってお越しください。</p>
+
+    <div class="timeline">
+      <div class="vine">
+        <svg viewBox="0 0 2 600" preserveAspectRatio="none">
+          <line x1="1" y1="0" x2="1" y2="600" stroke="#8C9C7E" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="t-item">
+        <div class="t-node"><div class="t-time">12:00</div><div class="t-dot"></div></div>
+        <div class="t-body">
+          <div class="t-title">受付</div>
+          <div class="t-desc">会場エントランスにてお迎えいたします。</div>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-node"><div class="t-time">12:30</div><div class="t-dot"></div></div>
+        <div class="t-body">
+          <div class="t-title">挙式</div>
+          <div class="t-desc">チャペルにて誓いの儀を執り行います。</div>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-node"><div class="t-time">13:30</div><div class="t-dot"></div></div>
+        <div class="t-body">
+          <div class="t-title">披露宴</div>
+          <div class="t-desc">お食事とともにお過ごしください。</div>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-node"><div class="t-time">16:00</div><div class="t-dot"></div></div>
+        <div class="t-body">
+          <div class="t-title">お開き</div>
+          <div class="t-desc">お見送りをもって終了となります。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DRESS CODE ================= -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Dress Code</div>
+    <h2>服装について</h2>
+    <div class="notice">
+      <div class="notice-title">近日中にお知らせします</div>
+      <p>服装コードは現在調整中です。決まり次第、こちらのページとLINEにてご案内いたします。<br>もうしばらくお待ちください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LINE ================= -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Stay Connected</div>
+    <h2>LINEで最新情報をお届け</h2>
+    <p class="lead">当日のご案内や写真の共有は、公式LINEアカウントで行います。ぜひ友だち追加をお願いします。</p>
+
+    <div class="line-card">
+      <div class="divider"><svg viewBox="0 0 120 28"><use href="#sprig"/></svg></div>
+      <a class="line-btn" href="#" id="line-add-btn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.94 2 10.7c0 4.26 3.56 7.84 8.37 8.55.33.07.77.22.88.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1 .88.55 1.08-.46 5.8-3.42 7.92-5.85C21.4 14.1 22 12.47 22 10.7 22 5.94 17.52 2 12 2z"/></svg>
+        友だち追加はこちら
+      </a>
+      <div class="qr-box" id="qr-box">QRコード<br>(準備中)</div>
+    </div>
+  </div>
+</section>
+
+<footer class="reveal">
+  <div class="fmark">Akihiro &amp; Madoka</div>
+  <div class="fdate">2026.10.08</div>
+</footer>
+
+<!-- shared sprig symbol -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="sprig" viewBox="0 0 120 28">
+    <g fill="none" stroke="#8C9C7E" stroke-width="1.6" stroke-linecap="round">
+      <path d="M10 14 C 35 4, 85 4, 110 14"/>
+      <path d="M30 14 c 4 -8 10 -9 12 -3" />
+      <path d="M50 14 c 4 -9 11 -10 13 -2" />
+      <path d="M70 14 c -4 -9 -11 -10 -13 -2" />
+      <path d="M90 14 c -4 -8 -10 -9 -12 -3" />
+    </g>
+    <g fill="#D9A6A0">
+      <circle cx="60" cy="12" r="3"/>
+    </g>
+  </symbol>
+</svg>
+
+<script>
+  // ---- build address / map link ----
+  const address = "埼玉県さいたま市大宮区吉敷町四丁目230-1 NEEDSさいたま新都心";
+  document.getElementById('map-link').href =
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
+
+  // ---- placeholder LINE link (REPLACE with real friend-add URL) ----
+  // Once the LINE Official Account is created, replace the href below
+  // with the real "friend add" URL, e.g. https://lin.ee/xxxxxxx
+  document.getElementById('line-add-btn').href = "https://line.me/R/ti/p/@your_account_id";
+
+  // ---- reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // put the divider sprig into the message-section divider slot
+  const d1 = document.getElementById('divider-1');
+  if(d1){
+    const svgns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgns,"svg");
+    svg.setAttribute("viewBox","0 0 120 28");
+    const use = document.createElementNS(svgns,"use");
+    use.setAttributeNS("http://www.w3.org/1999/xlink","href","#sprig");
+    svg.appendChild(use);
+    d1.appendChild(svg);
+  }
+
+  // ---- generate hand-drawn wreath ----
+  (function(){
+    const svg = document.querySelector('.wreath-wrap svg g');
+    const cx = 200, cy = 200;
+    const rInner = 128, rOuter = 168;
+    const leafCount = 22;
+    const gapDeg = 46; // gap at the bottom for organic asymmetry
+    const startDeg = 90 + gapDeg/2;
+    const endDeg = 360 + 90 - gapDeg/2;
+    const span = endDeg - startDeg;
+
+    function leafPath(x1,y1,x2,y2,bulge){
+      const mx=(x1+x2)/2, my=(y1+y2)/2;
+      const dx=x2-x1, dy=y2-y1;
+      const nx=-dy, ny=dx;
+      const len = Math.sqrt(nx*nx+ny*ny) || 1;
+      const ux=nx/len, uy=ny/len;
+      const c1x = mx+ux*bulge, c1y = my+uy*bulge;
+      const c2x = mx-ux*bulge*0.4, c2y = my-uy*bulge*0.4;
+      return `M ${x1} ${y1} Q ${c1x} ${c1y} ${x2} ${y2} Q ${c2x} ${c2y} ${x1} ${y1} Z`;
+    }
+
+    const colors = ['#8C9C7E','#5C6B4F','#C6A25B'];
+    for(let i=0;i<leafCount;i++){
+      const t = i/(leafCount-1);
+      const deg = startDeg + t*span;
+      const rad = deg*Math.PI/180;
+      const jitter = (Math.sin(i*12.9)*0.5+0.5)*10 - 5;
+      const rMid = (rInner+rOuter)/2 + jitter;
+      const baseX = cx + Math.cos(rad)*rInner;
+      const baseY = cy + Math.sin(rad)*rInner;
+      const tipX = cx + Math.cos(rad)*(rOuter+ (i%3===0?14:0));
+      const tipY = cy + Math.sin(rad)*(rOuter+ (i%3===0?14:0));
+      const bulge = 9 + (i%4)*2;
+      const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+      path.setAttribute("d", leafPath(baseX,baseY,tipX,tipY,bulge));
+      const col = colors[i%3===2?2: (i%2)];
+      path.setAttribute("fill", col);
+      path.setAttribute("fill-opacity", i%3===0 ? "0.85":"0.55");
+      path.setAttribute("stroke", col);
+      path.setAttribute("stroke-width","0.6");
+      path.classList.add('leaf-sway');
+      path.style.animation = `sway ${4+ (i%5)*0.6}s ease-in-out ${(i%7)*0.3}s infinite`;
+      path.style.transformOrigin = `${baseX}px ${baseY}px`;
+      svg.appendChild(path);
+
+      // occasional small blossom
+      if(i % 6 === 1){
+        const flower = document.createElementNS("http://www.w3.org/2000/svg","g");
+        const fx = cx + Math.cos(rad)*(rInner-6);
+        const fy = cy + Math.sin(rad)*(rInner-6);
+        for(let p=0;p<5;p++){
+          const pa = (p/5)*Math.PI*2;
+          const petal = document.createElementNS("http://www.w3.org/2000/svg","ellipse");
+          petal.setAttribute("cx", fx + Math.cos(pa)*4.2);
+          petal.setAttribute("cy", fy + Math.sin(pa)*4.2);
+          petal.setAttribute("rx","4.2");
+          petal.setAttribute("ry","3");
+          petal.setAttribute("transform", `rotate(${pa*180/Math.PI} ${fx + Math.cos(pa)*4.2} ${fy + Math.sin(pa)*4.2})`);
+          petal.setAttribute("fill","#D9A6A0");
+          petal.setAttribute("fill-opacity","0.8");
+          flower.appendChild(petal);
+        }
+        const center = document.createElementNS("http://www.w3.org/2000/svg","circle");
+        center.setAttribute("cx",fx); center.setAttribute("cy",fy); center.setAttribute("r","2.6");
+        center.setAttribute("fill","#C6A25B");
+        flower.appendChild(center);
+        svg.appendChild(flower);
+      }
+    }
+
+    // sway keyframes injected once
+    const style = document.createElement('style');
+    style.textContent = `@keyframes sway{0%,100%{transform:rotate(-1.2deg);}50%{transform:rotate(1.2deg);}}`;
+    document.head.appendChild(style);
+  })();
+</script>
+
+</body>
+</html>
