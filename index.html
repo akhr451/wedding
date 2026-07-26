@@ -282,13 +282,15 @@
     margin:26px auto 0;
     border-radius:16px;
     background:#fff;
-    border:1px dashed rgba(140,156,126,.5);
+    border:1px solid rgba(140,156,126,.3);
     display:flex;align-items:center;justify-content:center;
     font-size:11px;
     color:var(--ink-soft);
     text-align:center;
     padding:10px;
+    overflow:hidden;
   }
+  .qr-box img{width:100%;height:100%;object-fit:contain;}
 
   footer{
     text-align:center;
@@ -458,7 +460,9 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.94 2 10.7c0 4.26 3.56 7.84 8.37 8.55.33.07.77.22.88.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1 .88.55 1.08-.46 5.8-3.42 7.92-5.85C21.4 14.1 22 12.47 22 10.7 22 5.94 17.52 2 12 2z"/></svg>
         友だち追加はこちら
       </a>
-      <div class="qr-box" id="qr-box">QRコード<br>(準備中)</div>
+      <div class="qr-box" id="qr-box">
+        <img src="https://qr-official.line.me/gs/M_024buely_GW.png?oat_content=qr" alt="LINE友だち追加QRコード">
+      </div>
     </div>
   </div>
 </section>
@@ -490,10 +494,8 @@
   document.getElementById('map-link').href =
     "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
 
-  // ---- placeholder LINE link (REPLACE with real friend-add URL) ----
-  // Once the LINE Official Account is created, replace the href below
-  // with the real "friend add" URL, e.g. https://lin.ee/xxxxxxx
-  document.getElementById('line-add-btn').href = "https://line.me/R/ti/p/@your_account_id";
+  // ---- LINE friend-add link ----
+  document.getElementById('line-add-btn').href = "https://lin.ee/6nZUtg5";
 
   // ---- reveal on scroll ----
   const revealEls = document.querySelectorAll('.reveal');
