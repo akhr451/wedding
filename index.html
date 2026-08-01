@@ -56,12 +56,24 @@
   }
   .lead{color:var(--ink-soft);font-size:15px;margin:0 0 34px;}
 
-  .divider{width:100%;display:flex;justify-content:center;margin:6px 0 30px;opacity:.85;}
-  .divider svg{width:120px;height:28px;}
-
   section{padding:78px 0;position:relative;}
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- corner flower (frame accent on card / notice / line-card) ---------- */
+  .card, .notice, .line-card{position:relative;}
+  .card::after, .notice::after, .line-card::after{
+    content:'';
+    position:absolute;
+    top:-22px;
+    right:-16px;
+    width:74px;
+    height:74px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='22' rx='9' ry='4' fill='%238FAD87' transform='rotate(-35 50 22)'/%3E%3Cellipse cx='80' cy='45' rx='8' ry='3.5' fill='%238FAD87' transform='rotate(40 80 45)'/%3E%3Cellipse cx='55' cy='48' rx='7' ry='3' fill='%238FAD87' transform='rotate(10 55 48)'/%3E%3Cg fill='%237FA5C2' stroke='%23F6F9FC' stroke-width='1.1'%3E%3Ccircle cx='34.0' cy='9.4' r='8.1'/%3E%3Ccircle cx='42.1' cy='15.4' r='8.1'/%3E%3Ccircle cx='39.0' cy='24.9' r='8.1'/%3E%3Ccircle cx='29.0' cy='24.9' r='8.1'/%3E%3Ccircle cx='25.9' cy='15.4' r='8.1'/%3E%3C/g%3E%3Ccircle cx='34' cy='18' r='5.2' fill='%23E9BE6E' stroke='%23F6F9FC' stroke-width='0.8'/%3E%3Cg fill='%233B5B78' stroke='%23F6F9FC' stroke-width='1.1'%3E%3Ccircle cx='84.0' cy='50.8' r='6.8'/%3E%3Ccircle cx='90.9' cy='55.8' r='6.8'/%3E%3Ccircle cx='88.3' cy='63.9' r='6.8'/%3E%3Ccircle cx='79.7' cy='63.9' r='6.8'/%3E%3Ccircle cx='77.1' cy='55.8' r='6.8'/%3E%3C/g%3E%3Ccircle cx='84' cy='58' r='4.4' fill='%23E9BE6E' stroke='%23F6F9FC' stroke-width='0.8'/%3E%3Cg fill='%23E8A768' stroke='%23F6F9FC' stroke-width='1.1'%3E%3Ccircle cx='68.0' cy='18.8' r='12.4'/%3E%3Ccircle cx='80.5' cy='27.9' r='12.4'/%3E%3Ccircle cx='75.7' cy='42.7' r='12.4'/%3E%3Ccircle cx='60.3' cy='42.7' r='12.4'/%3E%3Ccircle cx='55.5' cy='27.9' r='12.4'/%3E%3C/g%3E%3Ccircle cx='68' cy='32' r='8.0' fill='%23E9BE6E' stroke='%23F6F9FC' stroke-width='0.8'/%3E%3C/svg%3E");
+    background-size:contain;
+    background-repeat:no-repeat;
+    pointer-events:none;
+  }
 
   /* ---------- hero ---------- */
   .hero{
@@ -137,7 +149,7 @@
 
   /* ---------- theme ---------- */
   .theme{text-align:center;}
-  .theme-title{margin-bottom:6px;}
+  .theme-title{margin-bottom:34px;}
   .theme-title-en{
     display:block;
     font-family:var(--serif-en);
@@ -333,6 +345,23 @@
   }
   .line-btn:hover{transform:translateY(-2px);}
   .line-btn svg{width:20px;height:20px;}
+  .invite-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--blue-deep);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    padding:15px 34px;
+    border-radius:999px;
+    text-decoration:none;
+    margin-top:22px;
+    box-shadow:0 10px 24px rgba(59,91,120,.25);
+    transition:transform .2s ease, background .2s ease;
+  }
+  .invite-btn:hover{transform:translateY(-2px);background:var(--orange-deep);}
+  .invite-btn svg{width:20px;height:20px;}
   .qr-box{
     width:132px;height:132px;
     margin:26px auto 0;
@@ -401,7 +430,6 @@
       <span class="theme-title-en">Shukusai</span>
       <span class="theme-title-jp">〜 人生を祝う 〜</span>
     </div>
-    <div class="divider" id="divider-1"></div>
 
     <div class="theme-quote">
       今この瞬間を一生懸命に生きる<br>
@@ -583,6 +611,22 @@
   </div>
 </section>
 
+<!-- ================= INVITATION ================= -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Invitation</div>
+    <h2>招待状</h2>
+    <p class="lead">正式な招待状はこちらからご確認いただけます。</p>
+
+    <div class="line-card">
+      <a class="invite-btn" href="https://akihiro-madoka.happy-weddingday.jp" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        招待状を見る
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ================= LINE ================= -->
 <section class="reveal">
   <div class="wrap">
@@ -591,7 +635,6 @@
     <p class="lead">当日のご案内や写真の共有は、公式LINEアカウントで行います。ぜひ友だち追加をお願いします。</p>
 
     <div class="line-card">
-      <div class="divider"><svg viewBox="0 0 120 28"><use href="#sprig"/></svg></div>
       <a class="line-btn" href="#" id="line-add-btn" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.94 2 10.7c0 4.26 3.56 7.84 8.37 8.55.33.07.77.22.88.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1 .88.55 1.08-.46 5.8-3.42 7.92-5.85C21.4 14.1 22 12.47 22 10.7 22 5.94 17.52 2 12 2z"/></svg>
         友だち追加はこちら
@@ -607,22 +650,6 @@
   <div class="fmark">Akihiro &amp; Madoka</div>
   <div class="fdate">2026.10.08</div>
 </footer>
-
-<!-- shared sprig symbol -->
-<svg width="0" height="0" style="position:absolute">
-  <symbol id="sprig" viewBox="0 0 120 28">
-    <g fill="none" stroke="#7FA5C2" stroke-width="1.6" stroke-linecap="round">
-      <path d="M10 14 C 35 4, 85 4, 110 14"/>
-      <path d="M30 14 c 4 -8 10 -9 12 -3" />
-      <path d="M50 14 c 4 -9 11 -10 13 -2" />
-      <path d="M70 14 c -4 -9 -11 -10 -13 -2" />
-      <path d="M90 14 c -4 -8 -10 -9 -12 -3" />
-    </g>
-    <g fill="#E8A768">
-      <circle cx="60" cy="12" r="3"/>
-    </g>
-  </symbol>
-</svg>
 
 <script>
   // ---- build address / map link ----
@@ -641,19 +668,6 @@
     });
   }, {threshold:.15});
   revealEls.forEach(el=>io.observe(el));
-
-  // put the divider sprig into the theme-section divider slot
-  const d1 = document.getElementById('divider-1');
-  if(d1){
-    const svgns = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgns,"svg");
-    svg.setAttribute("viewBox","0 0 120 28");
-    const use = document.createElementNS(svgns,"use");
-    use.setAttributeNS("http://www.w3.org/1999/xlink","href","#sprig");
-    svg.appendChild(use);
-    d1.appendChild(svg);
-  }
-
 </script>
 
 </body>
