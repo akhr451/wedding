@@ -298,6 +298,11 @@
     margin-bottom:6px;
   }
   .share-nav-desc{font-size:13px;color:var(--ink-soft);}
+  .share-nav.single{
+    grid-template-columns:1fr;
+    max-width:280px;
+    margin:0 auto;
+  }
 
   @media (max-width:420px){
     .share-nav{grid-template-columns:1fr;}
@@ -522,7 +527,6 @@
   <div class="wrap">
     <div class="eyebrow">Share With Us</div>
     <h2>写真・メッセージを送る</h2>
-    <p class="lead">リッチメニューの「写真を送る」「メッセージを送る」からもここに来られます。</p>
 
     <div class="share-nav">
       <a class="share-nav-card" href="photo.html" id="send-photo">
@@ -538,6 +542,42 @@
         </div>
         <div class="share-nav-title">メッセージを送る</div>
         <div class="share-nav-desc">お二人へのメッセージ</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SURVEY ================= -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Survey</div>
+    <h2>アンケート回答</h2>
+
+    <div class="share-nav single">
+      <a class="share-nav-card" href="survey.html">
+        <div class="share-nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a1 1 0 0 1 1 1v1h1a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1V4a1 1 0 0 1 1-1z"/><path d="M9 3v3h6V3"/><path d="M8.5 12.5l2 2 4.5-4.5"/></svg>
+        </div>
+        <div class="share-nav-title">アンケートに回答する</div>
+        <div class="share-nav-desc">ぜひご協力ください</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FUN CONTENT ================= -->
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Enjoy</div>
+    <h2>お楽しみコンテンツ</h2>
+
+    <div class="share-nav single">
+      <a class="share-nav-card" href="fun.html">
+        <div class="share-nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.2 6.2L20 10l-5.8 1.8L12 18l-2.2-6.2L4 10l5.8-1.8z"/></svg>
+        </div>
+        <div class="share-nav-title">お楽しみコンテンツ</div>
+        <div class="share-nav-desc">動画・ゲームなど</div>
       </a>
     </div>
   </div>

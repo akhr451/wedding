@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゲーム | 晃広 & まどか Wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F6F9FC;
+    --ivory-deep:#EAF1F7;
+    --blue:#7FA5C2;
+    --blue-deep:#3B5B78;
+    --orange:#E8A768;
+    --orange-deep:#C97D3E;
+    --ink:#263241;
+    --ink-soft:#5c6b7a;
+    --serif-jp: 'Shippori Mincho', serif;
+    --serif-en: 'Cormorant Garamond', serif;
+    --sans-jp: 'Zen Kaku Gothic New', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:var(--sans-jp);
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+
+  .wrap{max-width:640px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- page header ---------- */
+  .page-header{padding:22px 0;border-bottom:1px solid rgba(127,165,194,.18);}
+  .page-header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand-link{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink);
+    text-decoration:none;
+    letter-spacing:.04em;
+    white-space:nowrap;
+  }
+  .back-link{
+    font-family:var(--sans-jp);
+    font-size:13px;
+    color:var(--blue-deep);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .back-link:hover{text-decoration:underline;}
+
+  /* ---------- shared type ---------- */
+  .eyebrow{
+    font-family:var(--serif-en);
+    font-style:italic;
+    letter-spacing:.14em;
+    color:var(--orange-deep);
+    font-size:15px;
+    text-transform:uppercase;
+  }
+  h2{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:26px;
+    letter-spacing:.06em;
+    color:var(--ink);
+    margin:10px 0 6px;
+  }
+  .lead{color:var(--ink-soft);font-size:15px;margin:0 0 34px;}
+
+  section{padding:56px 0 78px;position:relative;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- notice ---------- */
+  .notice{
+    background:linear-gradient(135deg, rgba(232,167,104,.14), rgba(127,165,194,.10));
+    border-radius:22px;
+    padding:40px 28px;
+    text-align:center;
+  }
+  .notice p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+  .notice .notice-title{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:18px;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .notice-icon{
+    width:34px;height:34px;
+    margin:0 auto 16px;
+    color:var(--blue-deep);
+  }
+  .notice-icon svg{width:100%;height:100%;}
+
+  /* ---------- back to hub ---------- */
+  .hub-link{
+    display:inline-block;
+    margin-top:24px;
+    font-size:13px;
+    color:var(--blue-deep);
+    text-decoration:underline;
+  }
+
+  footer{
+    text-align:center;
+    padding:60px 24px 50px;
+  }
+  footer .fmark{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:15px;
+    color:var(--orange-deep);
+    letter-spacing:.1em;
+  }
+  footer .fdate{
+    margin-top:6px;
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:.08em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{transition:none;opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="wrap page-header-inner">
+    <a class="brand-link" href="index.html">晃広 &amp; まどか</a>
+    <a class="back-link" href="index.html">&larr; トップに戻る</a>
+  </div>
+</header>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Game</div>
+    <h2>ゲーム</h2>
+    <p class="lead">お楽しみいただけるゲームをご用意する予定です。</p>
+
+    <div class="notice">
+      <div class="notice-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="10" rx="5"/><path d="M7 11v4M5 13h4"/><circle cx="16" cy="12" r="1"/><circle cx="18.5" cy="14.5" r="1"/></svg>
+      </div>
+      <div class="notice-title">現在準備中です</div>
+      <p>ゲームは近日公開予定です。決まり次第、こちらのページとLINEにてご案内いたします。<br>もうしばらくお待ちください。</p>
+    </div>
+
+    <a class="hub-link" href="fun.html">&larr; お楽しみコンテンツ に戻る</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fmark">Akihiro &amp; Madoka</div>
+  <div class="fdate">2026.10.08</div>
+</footer>
+
+<script>
+  // ---- reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
