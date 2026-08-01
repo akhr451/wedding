@@ -60,21 +60,6 @@
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
 
-  /* ---------- corner flower (frame accent on card / notice / line-card) ---------- */
-  .card, .notice, .line-card{position:relative;}
-  .card::after, .notice::after, .line-card::after{
-    content:'';
-    position:absolute;
-    top:-22px;
-    right:-16px;
-    width:74px;
-    height:74px;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='22' rx='9' ry='4' fill='%238FAD87' transform='rotate(-35 50 22)'/%3E%3Cellipse cx='80' cy='45' rx='8' ry='3.5' fill='%238FAD87' transform='rotate(40 80 45)'/%3E%3Cellipse cx='55' cy='48' rx='7' ry='3' fill='%238FAD87' transform='rotate(10 55 48)'/%3E%3Cg fill='%237FA5C2' stroke='%23F6F9FC' stroke-width='1.1'%3E%3Ccircle cx='34.0' cy='9.4' r='8.1'/%3E%3Ccircle cx='42.1' cy='15.4' r='8.1'/%3E%3Ccircle cx='39.0' cy='24.9' r='8.1'/%3E%3Ccircle cx='29.0' cy='24.9' r='8.1'/%3E%3Ccircle cx='25.9' cy='15.4' r='8.1'/%3E%3C/g%3E%3Ccircle cx='34' cy='18' r='5.2' fill='%23E9BE6E' stroke='%23F6F9FC' stroke-width='0.8'/%3E%3Cg fill='%233B5B78' stroke='%23F6F9FC' stroke-width='1.1'%3E%3Ccircle cx='84.0' cy='50.8' r='6.8'/%3E%3Ccircle cx='90.9' cy='55.8' r='6.8'/%3E%3Ccircle cx='88.3' cy='63.9' r='6.8'/%3E%3Ccircle cx='79.7' cy='63.9' r='6.8'/%3E%3Ccircle cx='77.1' cy='55.8' r='6.8'/%3E%3C/g%3E%3Ccircle cx='84' cy='58' r='4.4' fill='%23E9BE6E' stroke='%23F6F9FC' stroke-width='0.8'/%3E%3Cg fill='%23E8A768' stroke='%23F6F9FC' stroke-width='1.1'%3E%3Ccircle cx='68.0' cy='18.8' r='12.4'/%3E%3Ccircle cx='80.5' cy='27.9' r='12.4'/%3E%3Ccircle cx='75.7' cy='42.7' r='12.4'/%3E%3Ccircle cx='60.3' cy='42.7' r='12.4'/%3E%3Ccircle cx='55.5' cy='27.9' r='12.4'/%3E%3C/g%3E%3Ccircle cx='68' cy='32' r='8.0' fill='%23E9BE6E' stroke='%23F6F9FC' stroke-width='0.8'/%3E%3C/svg%3E");
-    background-size:contain;
-    background-repeat:no-repeat;
-    pointer-events:none;
-  }
-
   /* ---------- hero ---------- */
   .hero{
     position:relative;
