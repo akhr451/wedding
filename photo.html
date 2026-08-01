@@ -148,13 +148,18 @@
     width:100%;height:100%;
   }
   .file-drop.has-file{border-style:solid;border-color:var(--blue-deep);background:rgba(127,165,194,.06);}
-  .thumb-preview{
+  .thumb-preview-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
     margin-top:14px;
+  }
+  .thumb-preview{
     position:relative;
     display:inline-block;
   }
   .thumb-preview img{
-    width:120px;height:120px;
+    width:90px;height:90px;
     object-fit:cover;
     border-radius:14px;
     border:1px solid rgba(127,165,194,.3);
@@ -280,11 +285,11 @@
           <label class="field-label" for="photo-name">お名前(任意)</label>
           <input type="text" class="text-input" id="photo-name" maxlength="50" placeholder="例:山田太郎">
 
-          <label class="field-label">写真</label>
+          <label class="field-label">写真(最大5枚)</label>
           <div class="file-drop" id="photo-drop">
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 34V14a2 2 0 0 1 2-2h6l3-4h10l3 4h6a2 2 0 0 1 2 2v20a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2z"/><circle cx="24" cy="24" r="7"/></svg>
             <span id="photo-drop-label">写真を選ぶ(カメラ / アルバム)</span>
-            <input type="file" accept="image/*" id="photo-file">
+            <input type="file" accept="image/*" id="photo-file" multiple>
           </div>
           <div id="photo-preview-wrap"></div>
 
@@ -373,75 +378,111 @@
     // ---- photo form ----
     const photoForm = document.getElementById('photo-form');
     if(photoForm){
+      const MAX_PHOTOS = 5;
       const fileInput = document.getElementById('photo-file');
       const drop = document.getElementById('photo-drop');
       const dropLabel = document.getElementById('photo-drop-label');
       const previewWrap = document.getElementById('photo-preview-wrap');
-      let chosenFile = null;
+      let chosenFiles = [];
 
-      fileInput.addEventListener('change', () => {
-        const file = fileInput.files && fileInput.files[0];
+      function renderPreviews(){
         previewWrap.innerHTML = '';
-        if(!file){ chosenFile = null; drop.classList.remove('has-file'); return; }
-        if(!file.type.startsWith('image/')){
-          setStatus(document.getElementById('photo-status'), '画像ファイルを選んでください。', 'error');
-          fileInput.value = '';
-          chosenFile = null;
-          return;
-        }
-        if(file.size > 15 * 1024 * 1024){
-          setStatus(document.getElementById('photo-status'), 'ファイルサイズが大きすぎます(15MBまで)。', 'error');
-          fileInput.value = '';
-          chosenFile = null;
-          return;
-        }
-        chosenFile = file;
-        drop.classList.add('has-file');
-        dropLabel.textContent = file.name;
-        setStatus(document.getElementById('photo-status'), '', null);
-
-        const url = URL.createObjectURL(file);
-        previewWrap.innerHTML =
-          '<div class="thumb-preview"><img src="' + url + '" alt=""><button type="button" class="thumb-remove" aria-label="削除">×</button></div>';
-        previewWrap.querySelector('.thumb-remove').addEventListener('click', () => {
-          chosenFile = null;
-          fileInput.value = '';
-          previewWrap.innerHTML = '';
+        if(!chosenFiles.length){
           drop.classList.remove('has-file');
           dropLabel.textContent = '写真を選ぶ(カメラ / アルバム)';
+          return;
+        }
+        drop.classList.add('has-file');
+        dropLabel.textContent = chosenFiles.length + '枚選択中(最大' + MAX_PHOTOS + '枚)';
+
+        const list = document.createElement('div');
+        list.className = 'thumb-preview-list';
+        chosenFiles.forEach((file, idx) => {
+          const url = URL.createObjectURL(file);
+          const item = document.createElement('div');
+          item.className = 'thumb-preview';
+          item.innerHTML = '<img src="' + url + '" alt=""><button type="button" class="thumb-remove" aria-label="削除">×</button>';
+          item.querySelector('.thumb-remove').addEventListener('click', () => {
+            chosenFiles.splice(idx, 1);
+            renderPreviews();
+          });
+          list.appendChild(item);
         });
+        previewWrap.appendChild(list);
+      }
+
+      fileInput.addEventListener('change', () => {
+        const incoming = Array.from(fileInput.files || []);
+        fileInput.value = ''; // allow re-selecting the same file(s) later
+        if(!incoming.length) return;
+
+        const statusEl = document.getElementById('photo-status');
+        setStatus(statusEl, '', null);
+
+        for(const file of incoming){
+          if(chosenFiles.length >= MAX_PHOTOS){
+            setStatus(statusEl, '写真は' + MAX_PHOTOS + '枚までです。', 'error');
+            break;
+          }
+          if(!file.type.startsWith('image/')){
+            setStatus(statusEl, '画像ファイルを選んでください。', 'error');
+            continue;
+          }
+          if(file.size > 15 * 1024 * 1024){
+            setStatus(statusEl, 'ファイルサイズが大きすぎます(15MBまで)。', 'error');
+            continue;
+          }
+          chosenFiles.push(file);
+        }
+        renderPreviews();
       });
 
       photoForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const statusEl = document.getElementById('photo-status');
-        if(!chosenFile){
+        if(!chosenFiles.length){
           setStatus(statusEl, '写真を選んでください。', 'error');
           return;
         }
         const submitBtn = document.getElementById('photo-submit');
+        const total = chosenFiles.length;
         photoForm.dataset.state = 'loading';
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span> 送信中…';
         setStatus(statusEl, '', null);
+
+        const name = document.getElementById('photo-name').value;
+        const caption = document.getElementById('photo-caption').value;
+        const website = photoForm.website.value;
+
+        let sentCount = 0;
         try{
-          const compressed = await compressImage(chosenFile, 1600, 0.82);
-          const base64 = await blobToBase64(compressed);
-          await postToGAS({
-            type: 'photo',
-            name: document.getElementById('photo-name').value,
-            caption: document.getElementById('photo-caption').value,
-            filename: chosenFile.name,
-            mimeType: 'image/jpeg',
-            data: base64,
-            website: photoForm.website.value
-          });
-          showThanks(photoForm, '写真が届きました');
+          for(const file of chosenFiles){
+            submitBtn.innerHTML = '<span class="spinner"></span> 送信中…(' + (sentCount + 1) + '/' + total + ')';
+            const compressed = await compressImage(file, 1600, 0.82);
+            const base64 = await blobToBase64(compressed);
+            await postToGAS({
+              type: 'photo',
+              name,
+              caption,
+              filename: file.name,
+              mimeType: 'image/jpeg',
+              data: base64,
+              website
+            });
+            sentCount++;
+          }
+          showThanks(photoForm, sentCount > 1 ? sentCount + '枚の写真が届きました' : '写真が届きました');
         }catch(err){
           photoForm.dataset.state = 'idle';
           submitBtn.disabled = false;
           submitBtn.textContent = '送る';
-          setStatus(statusEl, '送信に失敗しました。電波の良い場所でもう一度お試しください。', 'error');
+          if(sentCount > 0){
+            chosenFiles = chosenFiles.slice(sentCount);
+            renderPreviews();
+            setStatus(statusEl, sentCount + '枚は送信できましたが、残り' + chosenFiles.length + '枚の送信に失敗しました。電波の良い場所でもう一度お試しください。', 'error');
+          }else{
+            setStatus(statusEl, '送信に失敗しました。電波の良い場所でもう一度お試しください。', 'error');
+          }
         }
       });
     }
