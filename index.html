@@ -9,15 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ivory:#FBF8F2;
-    --ivory-deep:#F5EEE3;
-    --sage:#8C9C7E;
-    --sage-deep:#5C6B4F;
-    --rose:#D9A6A0;
-    --rose-deep:#B97D77;
-    --gold:#C6A25B;
-    --ink:#3E4A3D;
-    --ink-soft:#6b7565;
+    --ivory:#F6F9FC;
+    --ivory-deep:#EAF1F7;
+    --blue:#7FA5C2;
+    --blue-deep:#3B5B78;
+    --orange:#E8A768;
+    --orange-deep:#C97D3E;
+    --ink:#263241;
+    --ink-soft:#5c6b7a;
     --line-green:#06C755;
     --serif-jp: 'Shippori Mincho', serif;
     --serif-en: 'Cormorant Garamond', serif;
@@ -43,7 +42,7 @@
     font-family:var(--serif-en);
     font-style:italic;
     letter-spacing:.14em;
-    color:var(--rose-deep);
+    color:var(--orange-deep);
     font-size:15px;
     text-transform:uppercase;
   }
@@ -74,8 +73,8 @@
     text-align:center;
     padding:60px 24px;
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(217,166,160,.18), transparent 55%),
-      radial-gradient(ellipse at 50% 100%, rgba(140,156,126,.16), transparent 55%),
+      radial-gradient(ellipse at 50% 0%, rgba(232,167,104,.18), transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(127,165,194,.16), transparent 55%),
       var(--ivory);
     position:relative;
     overflow:hidden;
@@ -95,7 +94,7 @@
     font-style:italic;
     font-size:14px;
     letter-spacing:.22em;
-    color:var(--sage-deep);
+    color:var(--blue-deep);
     text-transform:uppercase;
     margin-bottom:14px;
   }
@@ -109,7 +108,7 @@
   }
   .hero-names .amp{
     display:inline-block;
-    color:var(--rose-deep);
+    color:var(--orange-deep);
     font-style:italic;
     margin:0 10px;
     font-size:.85em;
@@ -132,29 +131,43 @@
     color:var(--ink-soft);
     display:flex;flex-direction:column;align-items:center;gap:6px;
   }
-  .scroll-cue .line{width:1px;height:26px;background:var(--sage);animation:pulse 2.2s ease-in-out infinite;}
+  .scroll-cue .line{width:1px;height:26px;background:var(--blue);animation:pulse 2.2s ease-in-out infinite;}
   @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
 
-  /* ---------- message ---------- */
-  .message{text-align:center;}
-  .message blockquote{
-    margin:0 auto;
-    max-width:420px;
-    font-family:var(--serif-jp);
-    font-size:19px;
-    color:var(--ink);
-    line-height:2;
-    font-weight:500;
-    position:relative;
-  }
-  .message .signoff{
+  /* ---------- theme ---------- */
+  .theme{text-align:center;}
+  .theme-title{margin-bottom:6px;}
+  .theme-title-en{
     display:block;
-    margin-top:22px;
     font-family:var(--serif-en);
     font-style:italic;
-    color:var(--rose-deep);
-    font-size:16px;
-    letter-spacing:.05em;
+    font-weight:500;
+    font-size:clamp(28px,6vw,38px);
+    color:var(--ink);
+    letter-spacing:.04em;
+  }
+  .theme-title-jp{
+    display:block;
+    font-family:var(--serif-jp);
+    font-size:15px;
+    color:var(--orange-deep);
+    letter-spacing:.14em;
+    margin-top:8px;
+  }
+  .theme-quote{
+    max-width:420px;
+    margin:0 auto 22px;
+    font-family:var(--serif-jp);
+    font-size:15.5px;
+    color:var(--ink-soft);
+    line-height:2;
+  }
+  .theme-quote:last-of-type{margin-bottom:0;}
+  .theme-quote-final{
+    margin-top:30px;
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
   }
 
   /* ---------- info card ---------- */
@@ -162,13 +175,13 @@
     background:var(--ivory-deep);
     border-radius:22px;
     padding:34px 28px;
-    border:1px solid rgba(140,156,126,.25);
+    border:1px solid rgba(127,165,194,.25);
   }
   .info-row{
     display:flex;
     gap:16px;
     padding:16px 0;
-    border-bottom:1px solid rgba(140,156,126,.22);
+    border-bottom:1px solid rgba(127,165,194,.22);
   }
   .info-row:last-of-type{border-bottom:none;}
   .info-label{
@@ -176,7 +189,7 @@
     font-family:var(--serif-en);
     font-style:italic;
     font-size:13px;
-    color:var(--sage-deep);
+    color:var(--blue-deep);
     letter-spacing:.05em;
     padding-top:2px;
   }
@@ -191,15 +204,15 @@
     padding:13px 26px;
     border-radius:999px;
     background:transparent;
-    border:1px solid var(--sage-deep);
-    color:var(--sage-deep);
+    border:1px solid var(--blue-deep);
+    color:var(--blue-deep);
     font-size:14px;
     text-decoration:none;
     font-family:var(--sans-jp);
     letter-spacing:.03em;
     transition:background .25s ease, color .25s ease;
   }
-  .map-btn:hover{background:var(--sage-deep);color:#fff;}
+  .map-btn:hover{background:var(--blue-deep);color:#fff;}
 
   /* ---------- timeline ---------- */
   .timeline{position:relative;padding-left:6px;}
@@ -221,14 +234,14 @@
   .t-dot{
     width:14px;height:14px;border-radius:50%;
     background:var(--ivory);
-    border:2px solid var(--rose-deep);
+    border:2px solid var(--orange-deep);
     margin-top:4px;
   }
   .t-time{
     font-family:var(--serif-en);
     font-style:italic;
     font-size:14px;
-    color:var(--sage-deep);
+    color:var(--blue-deep);
     white-space:nowrap;
     margin-top:8px;
   }
@@ -238,7 +251,7 @@
 
   /* ---------- notice ---------- */
   .notice{
-    background:linear-gradient(135deg, rgba(217,166,160,.14), rgba(140,156,126,.10));
+    background:linear-gradient(135deg, rgba(232,167,104,.14), rgba(127,165,194,.10));
     border-radius:22px;
     padding:32px 28px;
     text-align:center;
@@ -265,14 +278,14 @@
     padding:30px 20px;
     text-align:center;
     text-decoration:none;
-    border:1px solid rgba(140,156,126,.25);
+    border:1px solid rgba(127,165,194,.25);
     transition:transform .2s ease, border-color .2s ease;
   }
-  .share-nav-card:hover{transform:translateY(-3px);border-color:var(--sage-deep);}
+  .share-nav-card:hover{transform:translateY(-3px);border-color:var(--blue-deep);}
   .share-nav-icon{
     width:38px;height:38px;
     margin:0 auto 14px;
-    color:var(--sage-deep);
+    color:var(--blue-deep);
   }
   .share-nav-icon svg{width:100%;height:100%;}
   .share-nav-title{
@@ -294,7 +307,7 @@
     background:var(--ivory-deep);
     border-radius:22px;
     padding:40px 28px;
-    border:1px solid rgba(140,156,126,.25);
+    border:1px solid rgba(127,165,194,.25);
   }
   .line-btn{
     display:inline-flex;
@@ -318,7 +331,7 @@
     margin:26px auto 0;
     border-radius:16px;
     background:#fff;
-    border:1px solid rgba(140,156,126,.3);
+    border:1px solid rgba(127,165,194,.3);
     display:flex;align-items:center;justify-content:center;
     font-size:11px;
     color:var(--ink-soft);
@@ -336,7 +349,7 @@
     font-family:var(--serif-en);
     font-style:italic;
     font-size:15px;
-    color:var(--rose-deep);
+    color:var(--orange-deep);
     letter-spacing:.1em;
   }
   footer .fdate{
@@ -377,16 +390,39 @@
   <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
 </section>
 
-<!-- ================= MESSAGE ================= -->
-<section class="message reveal">
+<!-- ================= THEME ================= -->
+<section class="theme reveal">
   <div class="wrap">
+    <div class="eyebrow">Wedding Theme</div>
+    <div class="theme-title">
+      <span class="theme-title-en">Shukusai</span>
+      <span class="theme-title-jp">〜 人生を祝う 〜</span>
+    </div>
     <div class="divider" id="divider-1"></div>
-    <blockquote>
-      このたび私たちの結婚式にお越しいただき、<br>
-      誠にありがとうございます。<br><br>
-      今日は楽しんでいってね〜
-      <span class="signoff">Akihiro &amp; Madoka</span>
-    </blockquote>
+
+    <div class="theme-quote">
+      今この瞬間を一生懸命に生きる<br>
+      自分にまっすぐに素直に生きる
+    </div>
+    <div class="theme-quote">
+      ありのままに人生を本気で生きてきた私たち<br>
+      大切なあなたと出会い<br>
+      たくさんのかけがえのない経験をした
+    </div>
+    <div class="theme-quote">
+      今日<br>人生を祝う日
+    </div>
+    <div class="theme-quote">
+      最高な人生を生きてきたこと<br>
+      今の私がいること<br>
+      そして何よりあなたと出会えたこと
+    </div>
+    <div class="theme-quote">
+      これまでもこれからも<br>感謝と愛を込めて
+    </div>
+    <div class="theme-quote theme-quote-final">
+      わたしたちの人生の祝祭へようこそ
+    </div>
   </div>
 </section>
 
@@ -435,7 +471,7 @@
     <div class="timeline">
       <div class="vine">
         <svg viewBox="0 0 2 600" preserveAspectRatio="none">
-          <line x1="1" y1="0" x2="1" y2="600" stroke="#8C9C7E" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>
+          <line x1="1" y1="0" x2="1" y2="600" stroke="#7FA5C2" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>
         </svg>
       </div>
 
@@ -537,14 +573,14 @@
 <!-- shared sprig symbol -->
 <svg width="0" height="0" style="position:absolute">
   <symbol id="sprig" viewBox="0 0 120 28">
-    <g fill="none" stroke="#8C9C7E" stroke-width="1.6" stroke-linecap="round">
+    <g fill="none" stroke="#7FA5C2" stroke-width="1.6" stroke-linecap="round">
       <path d="M10 14 C 35 4, 85 4, 110 14"/>
       <path d="M30 14 c 4 -8 10 -9 12 -3" />
       <path d="M50 14 c 4 -9 11 -10 13 -2" />
       <path d="M70 14 c -4 -9 -11 -10 -13 -2" />
       <path d="M90 14 c -4 -8 -10 -9 -12 -3" />
     </g>
-    <g fill="#D9A6A0">
+    <g fill="#E8A768">
       <circle cx="60" cy="12" r="3"/>
     </g>
   </symbol>
@@ -568,7 +604,7 @@
   }, {threshold:.15});
   revealEls.forEach(el=>io.observe(el));
 
-  // put the divider sprig into the message-section divider slot
+  // put the divider sprig into the theme-section divider slot
   const d1 = document.getElementById('divider-1');
   if(d1){
     const svgns = "http://www.w3.org/2000/svg";
@@ -602,7 +638,7 @@
       return `M ${x1} ${y1} Q ${c1x} ${c1y} ${x2} ${y2} Q ${c2x} ${c2y} ${x1} ${y1} Z`;
     }
 
-    const colors = ['#8C9C7E','#5C6B4F','#C6A25B'];
+    const colors = ['#7FA5C2','#3B5B78','#C97D3E'];
     for(let i=0;i<leafCount;i++){
       const t = i/(leafCount-1);
       const deg = startDeg + t*span;
@@ -639,13 +675,13 @@
           petal.setAttribute("rx","4.2");
           petal.setAttribute("ry","3");
           petal.setAttribute("transform", `rotate(${pa*180/Math.PI} ${fx + Math.cos(pa)*4.2} ${fy + Math.sin(pa)*4.2})`);
-          petal.setAttribute("fill","#D9A6A0");
+          petal.setAttribute("fill","#E8A768");
           petal.setAttribute("fill-opacity","0.8");
           flower.appendChild(petal);
         }
         const center = document.createElementNS("http://www.w3.org/2000/svg","circle");
         center.setAttribute("cx",fx); center.setAttribute("cy",fy); center.setAttribute("r","2.6");
-        center.setAttribute("fill","#C6A25B");
+        center.setAttribute("fill","#C97D3E");
         flower.appendChild(center);
         svg.appendChild(flower);
       }
