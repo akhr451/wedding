@@ -252,143 +252,41 @@
     margin-bottom:10px;
   }
 
-  /* ---------- share forms (photo / message) ---------- */
-  .share-card{text-align:left;}
-  .share-card p{margin:0 0 20px;font-size:14.5px;color:var(--ink-soft);}
-  .share-form{margin-top:4px;}
-  .field-label{
+  /* ---------- share nav (links to photo.html / message.html) ---------- */
+  .share-nav{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .share-nav-card{
     display:block;
-    font-family:var(--serif-en);
-    font-style:italic;
-    font-size:13px;
-    color:var(--sage-deep);
-    letter-spacing:.05em;
-    margin:16px 0 6px;
-  }
-  .text-input, .textarea-input{
-    display:block;
-    width:100%;
-    border:none;
-    border-bottom:1px solid rgba(140,156,126,.4);
-    background:transparent;
-    font-family:var(--sans-jp);
-    font-size:15px;
-    color:var(--ink);
-    padding:9px 2px;
-    outline:none;
-    transition:border-color .2s ease;
-  }
-  .text-input:focus, .textarea-input:focus{border-bottom-color:var(--rose-deep);}
-  .textarea-input{resize:vertical;min-height:64px;line-height:1.7;}
-  .char-count{
-    text-align:right;
-    font-size:12px;
-    color:var(--ink-soft);
-    margin-top:4px;
-  }
-  .file-drop{
-    position:relative;
-    margin-top:4px;
-    border:1.5px dashed var(--sage);
-    border-radius:16px;
-    padding:26px 20px;
+    background:var(--ivory-deep);
+    border-radius:22px;
+    padding:30px 20px;
     text-align:center;
+    text-decoration:none;
+    border:1px solid rgba(140,156,126,.25);
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .share-nav-card:hover{transform:translateY(-3px);border-color:var(--sage-deep);}
+  .share-nav-icon{
+    width:38px;height:38px;
+    margin:0 auto 14px;
     color:var(--sage-deep);
-    font-size:14px;
-    transition:border-color .2s ease, background .2s ease;
   }
-  .file-drop svg{margin:0 auto 8px;width:30px;height:30px;}
-  .file-drop input[type=file]{
-    position:absolute;inset:0;
-    opacity:0;
-    cursor:pointer;
-    width:100%;height:100%;
-  }
-  .file-drop.has-file{border-style:solid;border-color:var(--sage-deep);background:rgba(140,156,126,.06);}
-  .thumb-preview{
-    margin-top:14px;
-    position:relative;
-    display:inline-block;
-  }
-  .thumb-preview img{
-    width:120px;height:120px;
-    object-fit:cover;
-    border-radius:14px;
-    border:1px solid rgba(140,156,126,.3);
-  }
-  .thumb-remove{
-    position:absolute;
-    top:-8px;right:-8px;
-    width:24px;height:24px;
-    border-radius:50%;
-    border:none;
-    background:var(--rose-deep);
-    color:#fff;
-    font-size:14px;
-    line-height:1;
-    cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .submit-btn{
-    margin-top:22px;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    border:none;
-    border-radius:999px;
-    padding:14px 32px;
-    background:var(--sage-deep);
-    color:#fff;
-    font-family:var(--sans-jp);
-    font-size:14.5px;
-    font-weight:700;
-    letter-spacing:.03em;
-    cursor:pointer;
-    transition:background .2s ease, opacity .2s ease;
-  }
-  .submit-btn:hover{background:var(--rose-deep);}
-  .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
-  .spinner{
-    width:14px;height:14px;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,.4);
-    border-top-color:#fff;
-    animation:spin .8s linear infinite;
-    display:inline-block;
-  }
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .form-status{
-    margin-top:14px;
-    font-size:13.5px;
-    min-height:1.2em;
-  }
-  .form-status.is-error{color:var(--rose-deep);}
-  .form-status.is-success{color:var(--sage-deep);}
-  .thanks-title{
+  .share-nav-icon svg{width:100%;height:100%;}
+  .share-nav-title{
     font-family:var(--serif-jp);
     font-weight:600;
-    font-size:17px;
+    font-size:16px;
     color:var(--ink);
-    margin-bottom:8px;
+    margin-bottom:6px;
   }
-  .thanks-again{
-    display:inline-block;
-    margin-top:10px;
-    font-size:13px;
-    color:var(--sage-deep);
-    text-decoration:underline;
-    cursor:pointer;
-    background:none;border:none;padding:0;
-    font-family:var(--sans-jp);
+  .share-nav-desc{font-size:13px;color:var(--ink-soft);}
+
+  @media (max-width:420px){
+    .share-nav{grid-template-columns:1fr;}
   }
-  .honeypot-field{
-    position:absolute;
-    left:-9999px;
-    top:-9999px;
-    width:1px;height:1px;
-    overflow:hidden;
-  }
-  .share-form[data-state="loading"] fieldset{opacity:.6;pointer-events:none;}
 
   /* ---------- line section ---------- */
   .line-card{
@@ -590,56 +488,23 @@
   <div class="wrap">
     <div class="eyebrow">Share With Us</div>
     <h2>写真・メッセージを送る</h2>
-    <p class="lead">リッチメニューの「写真を送る」「メッセージを送る」からここに来られます。</p>
+    <p class="lead">リッチメニューの「写真を送る」「メッセージを送る」からもここに来られます。</p>
 
-    <div class="notice share-card" id="send-photo">
-      <div class="notice-title">写真を送る</div>
-      <p>これまでの思い出の一枚や当日の写真を、ぜひ送ってください。</p>
-
-      <form class="share-form" id="photo-form" data-state="idle" novalidate>
-        <fieldset style="border:none;padding:0;margin:0;">
-          <input type="text" name="website" class="honeypot-field" tabindex="-1" autocomplete="off">
-
-          <label class="field-label" for="photo-name">お名前(任意)</label>
-          <input type="text" class="text-input" id="photo-name" maxlength="50" placeholder="例:山田太郎">
-
-          <label class="field-label">写真</label>
-          <div class="file-drop" id="photo-drop">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 34V14a2 2 0 0 1 2-2h6l3-4h10l3 4h6a2 2 0 0 1 2 2v20a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2z"/><circle cx="24" cy="24" r="7"/></svg>
-            <span id="photo-drop-label">写真を選ぶ(カメラ / アルバム)</span>
-            <input type="file" accept="image/*" id="photo-file">
-          </div>
-          <div id="photo-preview-wrap"></div>
-
-          <label class="field-label" for="photo-caption">ひとこと(任意)</label>
-          <textarea class="textarea-input" id="photo-caption" maxlength="200" rows="2" placeholder="写真に添えるメッセージ"></textarea>
-          <div class="char-count"><span id="photo-caption-count">0</span>/200</div>
-
-          <button type="submit" class="submit-btn" id="photo-submit">送る</button>
-          <div class="form-status" id="photo-status" role="status"></div>
-        </fieldset>
-      </form>
-    </div>
-
-    <div class="notice share-card" id="send-message" style="margin-top:20px;">
-      <div class="notice-title">メッセージを送る</div>
-      <p>お二人へのメッセージをお寄せください。</p>
-
-      <form class="share-form" id="message-form" data-state="idle" novalidate>
-        <fieldset style="border:none;padding:0;margin:0;">
-          <input type="text" name="website" class="honeypot-field" tabindex="-1" autocomplete="off">
-
-          <label class="field-label" for="message-name">お名前(任意)</label>
-          <input type="text" class="text-input" id="message-name" maxlength="50" placeholder="例:山田太郎">
-
-          <label class="field-label" for="message-body">メッセージ</label>
-          <textarea class="textarea-input" id="message-body" maxlength="500" rows="4" placeholder="お二人へのメッセージをどうぞ" required></textarea>
-          <div class="char-count"><span id="message-body-count">0</span>/500</div>
-
-          <button type="submit" class="submit-btn" id="message-submit">送る</button>
-          <div class="form-status" id="message-status" role="status"></div>
-        </fieldset>
-      </form>
+    <div class="share-nav">
+      <a class="share-nav-card" href="photo.html" id="send-photo">
+        <div class="share-nav-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 34V14a2 2 0 0 1 2-2h6l3-4h10l3 4h6a2 2 0 0 1 2 2v20a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2z"/><circle cx="24" cy="24" r="7"/></svg>
+        </div>
+        <div class="share-nav-title">写真を送る</div>
+        <div class="share-nav-desc">思い出の一枚をお二人へ</div>
+      </a>
+      <a class="share-nav-card" href="message.html" id="send-message">
+        <div class="share-nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v13H8l-4 4V4z"/></svg>
+        </div>
+        <div class="share-nav-title">メッセージを送る</div>
+        <div class="share-nav-desc">お二人へのメッセージ</div>
+      </a>
     </div>
   </div>
 </section>
@@ -792,180 +657,6 @@
     document.head.appendChild(style);
   })();
 
-  // ---- photo / message sharing ----
-  (function(){
-    const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzQYXI-xxTIASjtIlWBUDKxjOyqhFsM8ps0JKjRHNlcu5Ru-QXDOBFYA4iiQ1ditvVI/exec";
-
-    async function postToGAS(payload){
-      const res = await fetch(GAS_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      });
-      const json = await res.json();
-      if(json.result !== 'success'){ throw new Error(json.message || '送信に失敗しました'); }
-      return json;
-    }
-
-    async function compressImage(file, maxDim, quality){
-      const bitmap = await createImageBitmap(file);
-      const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
-      const w = Math.round(bitmap.width * scale), h = Math.round(bitmap.height * scale);
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h);
-      return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
-    }
-
-    function blobToBase64(blob){
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    }
-
-    function setStatus(el, message, kind){
-      el.textContent = message || '';
-      el.classList.remove('is-error','is-success');
-      if(kind) el.classList.add(kind === 'error' ? 'is-error' : 'is-success');
-    }
-
-    function showThanks(form, title){
-      form.innerHTML =
-        '<div class="thanks-title">' + title + '</div>' +
-        '<p style="margin:0;font-size:14px;color:var(--ink-soft);">お寄せいただきありがとうございます。</p>' +
-        '<button type="button" class="thanks-again">もう一度送る</button>';
-      form.dataset.state = 'success';
-    }
-
-    // ---- char counters ----
-    function wireCounter(inputId, countId){
-      const input = document.getElementById(inputId);
-      const count = document.getElementById(countId);
-      if(!input || !count) return;
-      input.addEventListener('input', () => { count.textContent = input.value.length; });
-    }
-    wireCounter('photo-caption', 'photo-caption-count');
-    wireCounter('message-body', 'message-body-count');
-
-    // ---- photo form ----
-    const photoForm = document.getElementById('photo-form');
-    if(photoForm){
-      const fileInput = document.getElementById('photo-file');
-      const drop = document.getElementById('photo-drop');
-      const dropLabel = document.getElementById('photo-drop-label');
-      const previewWrap = document.getElementById('photo-preview-wrap');
-      let chosenFile = null;
-
-      fileInput.addEventListener('change', () => {
-        const file = fileInput.files && fileInput.files[0];
-        previewWrap.innerHTML = '';
-        if(!file){ chosenFile = null; drop.classList.remove('has-file'); return; }
-        if(!file.type.startsWith('image/')){
-          setStatus(document.getElementById('photo-status'), '画像ファイルを選んでください。', 'error');
-          fileInput.value = '';
-          chosenFile = null;
-          return;
-        }
-        if(file.size > 15 * 1024 * 1024){
-          setStatus(document.getElementById('photo-status'), 'ファイルサイズが大きすぎます(15MBまで)。', 'error');
-          fileInput.value = '';
-          chosenFile = null;
-          return;
-        }
-        chosenFile = file;
-        drop.classList.add('has-file');
-        dropLabel.textContent = file.name;
-        setStatus(document.getElementById('photo-status'), '', null);
-
-        const url = URL.createObjectURL(file);
-        previewWrap.innerHTML =
-          '<div class="thumb-preview"><img src="' + url + '" alt=""><button type="button" class="thumb-remove" aria-label="削除">×</button></div>';
-        previewWrap.querySelector('.thumb-remove').addEventListener('click', () => {
-          chosenFile = null;
-          fileInput.value = '';
-          previewWrap.innerHTML = '';
-          drop.classList.remove('has-file');
-          dropLabel.textContent = '写真を選ぶ(カメラ / アルバム)';
-        });
-      });
-
-      photoForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const statusEl = document.getElementById('photo-status');
-        if(!chosenFile){
-          setStatus(statusEl, '写真を選んでください。', 'error');
-          return;
-        }
-        const submitBtn = document.getElementById('photo-submit');
-        photoForm.dataset.state = 'loading';
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span> 送信中…';
-        setStatus(statusEl, '', null);
-        try{
-          const compressed = await compressImage(chosenFile, 1600, 0.82);
-          const base64 = await blobToBase64(compressed);
-          await postToGAS({
-            type: 'photo',
-            name: document.getElementById('photo-name').value,
-            caption: document.getElementById('photo-caption').value,
-            filename: chosenFile.name,
-            mimeType: 'image/jpeg',
-            data: base64,
-            website: photoForm.website.value
-          });
-          showThanks(photoForm, '写真が届きました');
-        }catch(err){
-          photoForm.dataset.state = 'idle';
-          submitBtn.disabled = false;
-          submitBtn.textContent = '送る';
-          setStatus(statusEl, '送信に失敗しました。電波の良い場所でもう一度お試しください。', 'error');
-        }
-      });
-    }
-
-    // ---- message form ----
-    const messageForm = document.getElementById('message-form');
-    if(messageForm){
-      messageForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const statusEl = document.getElementById('message-status');
-        const body = document.getElementById('message-body').value.trim();
-        if(!body){
-          setStatus(statusEl, 'メッセージを入力してください。', 'error');
-          return;
-        }
-        const submitBtn = document.getElementById('message-submit');
-        messageForm.dataset.state = 'loading';
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span> 送信中…';
-        setStatus(statusEl, '', null);
-        try{
-          await postToGAS({
-            type: 'message',
-            name: document.getElementById('message-name').value,
-            message: body,
-            website: messageForm.website.value
-          });
-          showThanks(messageForm, 'メッセージが届きました');
-        }catch(err){
-          messageForm.dataset.state = 'idle';
-          submitBtn.disabled = false;
-          submitBtn.textContent = '送る';
-          setStatus(statusEl, '送信に失敗しました。電波の良い場所でもう一度お試しください。', 'error');
-        }
-      });
-    }
-
-    // ---- "send again" (event delegation, since forms get replaced with thanks markup) ----
-    document.addEventListener('click', (e) => {
-      if(e.target.classList.contains('thanks-again')){
-        location.reload();
-      }
-    });
-  })();
 </script>
 
 </body>

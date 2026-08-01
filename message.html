@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>メッセージを送る | 晃広 & まどか Wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FBF8F2;
+    --ivory-deep:#F5EEE3;
+    --sage:#8C9C7E;
+    --sage-deep:#5C6B4F;
+    --rose:#D9A6A0;
+    --rose-deep:#B97D77;
+    --gold:#C6A25B;
+    --ink:#3E4A3D;
+    --ink-soft:#6b7565;
+    --serif-jp: 'Shippori Mincho', serif;
+    --serif-en: 'Cormorant Garamond', serif;
+    --sans-jp: 'Zen Kaku Gothic New', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:var(--sans-jp);
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+
+  .wrap{max-width:640px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- page header ---------- */
+  .page-header{padding:22px 0;border-bottom:1px solid rgba(140,156,126,.18);}
+  .page-header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand-link{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink);
+    text-decoration:none;
+    letter-spacing:.04em;
+    white-space:nowrap;
+  }
+  .back-link{
+    font-family:var(--sans-jp);
+    font-size:13px;
+    color:var(--sage-deep);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .back-link:hover{text-decoration:underline;}
+
+  /* ---------- shared type ---------- */
+  .eyebrow{
+    font-family:var(--serif-en);
+    font-style:italic;
+    letter-spacing:.14em;
+    color:var(--rose-deep);
+    font-size:15px;
+    text-transform:uppercase;
+  }
+  h2{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:26px;
+    letter-spacing:.06em;
+    color:var(--ink);
+    margin:10px 0 6px;
+  }
+  .lead{color:var(--ink-soft);font-size:15px;margin:0 0 34px;}
+
+  section{padding:56px 0 78px;position:relative;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- notice / share card ---------- */
+  .notice{
+    background:linear-gradient(135deg, rgba(217,166,160,.14), rgba(140,156,126,.10));
+    border-radius:22px;
+    padding:32px 28px;
+    text-align:center;
+  }
+  .notice p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+  .notice .notice-title{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:17px;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+
+  .share-card{text-align:left;}
+  .share-card p{margin:0 0 20px;font-size:14.5px;color:var(--ink-soft);}
+  .share-form{margin-top:4px;}
+  .field-label{
+    display:block;
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:13px;
+    color:var(--sage-deep);
+    letter-spacing:.05em;
+    margin:16px 0 6px;
+  }
+  .text-input, .textarea-input{
+    display:block;
+    width:100%;
+    border:none;
+    border-bottom:1px solid rgba(140,156,126,.4);
+    background:transparent;
+    font-family:var(--sans-jp);
+    font-size:15px;
+    color:var(--ink);
+    padding:9px 2px;
+    outline:none;
+    transition:border-color .2s ease;
+  }
+  .text-input:focus, .textarea-input:focus{border-bottom-color:var(--rose-deep);}
+  .textarea-input{resize:vertical;min-height:64px;line-height:1.7;}
+  .char-count{
+    text-align:right;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+  .submit-btn{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    border-radius:999px;
+    padding:14px 32px;
+    background:var(--sage-deep);
+    color:#fff;
+    font-family:var(--sans-jp);
+    font-size:14.5px;
+    font-weight:700;
+    letter-spacing:.03em;
+    cursor:pointer;
+    transition:background .2s ease, opacity .2s ease;
+  }
+  .submit-btn:hover{background:var(--rose-deep);}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+  .spinner{
+    width:14px;height:14px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.4);
+    border-top-color:#fff;
+    animation:spin .8s linear infinite;
+    display:inline-block;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .form-status{
+    margin-top:14px;
+    font-size:13.5px;
+    min-height:1.2em;
+  }
+  .form-status.is-error{color:var(--rose-deep);}
+  .form-status.is-success{color:var(--sage-deep);}
+  .thanks-title{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:17px;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .thanks-again{
+    display:inline-block;
+    margin-top:10px;
+    font-size:13px;
+    color:var(--sage-deep);
+    text-decoration:underline;
+    cursor:pointer;
+    background:none;border:none;padding:0;
+    font-family:var(--sans-jp);
+  }
+  .honeypot-field{
+    position:absolute;
+    left:-9999px;
+    top:-9999px;
+    width:1px;height:1px;
+    overflow:hidden;
+  }
+  .share-form[data-state="loading"] fieldset{opacity:.6;pointer-events:none;}
+
+  footer{
+    text-align:center;
+    padding:60px 24px 50px;
+  }
+  footer .fmark{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:15px;
+    color:var(--rose-deep);
+    letter-spacing:.1em;
+  }
+  footer .fdate{
+    margin-top:6px;
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:.08em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{transition:none;opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="wrap page-header-inner">
+    <a class="brand-link" href="index.html">晃広 &amp; まどか</a>
+    <a class="back-link" href="index.html">&larr; トップに戻る</a>
+  </div>
+</header>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="eyebrow">Share With Us</div>
+    <h2>メッセージを送る</h2>
+    <p class="lead">お二人へのメッセージをお寄せください。</p>
+
+    <div class="notice share-card" id="send-message">
+      <form class="share-form" id="message-form" data-state="idle" novalidate>
+        <fieldset style="border:none;padding:0;margin:0;">
+          <input type="text" name="website" class="honeypot-field" tabindex="-1" autocomplete="off">
+
+          <label class="field-label" for="message-name">お名前(任意)</label>
+          <input type="text" class="text-input" id="message-name" maxlength="50" placeholder="例:山田太郎">
+
+          <label class="field-label" for="message-body">メッセージ</label>
+          <textarea class="textarea-input" id="message-body" maxlength="500" rows="4" placeholder="お二人へのメッセージをどうぞ" required></textarea>
+          <div class="char-count"><span id="message-body-count">0</span>/500</div>
+
+          <button type="submit" class="submit-btn" id="message-submit">送る</button>
+          <div class="form-status" id="message-status" role="status"></div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fmark">Akihiro &amp; Madoka</div>
+  <div class="fdate">2026.10.08</div>
+</footer>
+
+<script>
+  // ---- reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // ---- message sharing ----
+  (function(){
+    const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzQYXI-xxTIASjtIlWBUDKxjOyqhFsM8ps0JKjRHNlcu5Ru-QXDOBFYA4iiQ1ditvVI/exec";
+
+    async function postToGAS(payload){
+      const res = await fetch(GAS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if(json.result !== 'success'){ throw new Error(json.message || '送信に失敗しました'); }
+      return json;
+    }
+
+    function setStatus(el, message, kind){
+      el.textContent = message || '';
+      el.classList.remove('is-error','is-success');
+      if(kind) el.classList.add(kind === 'error' ? 'is-error' : 'is-success');
+    }
+
+    function showThanks(form, title){
+      form.innerHTML =
+        '<div class="thanks-title">' + title + '</div>' +
+        '<p style="margin:0;font-size:14px;color:var(--ink-soft);">お寄せいただきありがとうございます。</p>' +
+        '<button type="button" class="thanks-again">もう一度送る</button>';
+      form.dataset.state = 'success';
+    }
+
+    // ---- char counter ----
+    const bodyInput = document.getElementById('message-body');
+    const bodyCount = document.getElementById('message-body-count');
+    if(bodyInput && bodyCount){
+      bodyInput.addEventListener('input', () => { bodyCount.textContent = bodyInput.value.length; });
+    }
+
+    // ---- message form ----
+    const messageForm = document.getElementById('message-form');
+    if(messageForm){
+      messageForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const statusEl = document.getElementById('message-status');
+        const body = document.getElementById('message-body').value.trim();
+        if(!body){
+          setStatus(statusEl, 'メッセージを入力してください。', 'error');
+          return;
+        }
+        const submitBtn = document.getElementById('message-submit');
+        messageForm.dataset.state = 'loading';
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner"></span> 送信中…';
+        setStatus(statusEl, '', null);
+        try{
+          await postToGAS({
+            type: 'message',
+            name: document.getElementById('message-name').value,
+            message: body,
+            website: messageForm.website.value
+          });
+          showThanks(messageForm, 'メッセージが届きました');
+        }catch(err){
+          messageForm.dataset.state = 'idle';
+          submitBtn.disabled = false;
+          submitBtn.textContent = '送る';
+          setStatus(statusEl, '送信に失敗しました。電波の良い場所でもう一度お試しください。', 'error');
+        }
+      });
+    }
+
+    // ---- "send again" (event delegation, since form gets replaced with thanks markup) ----
+    document.addEventListener('click', (e) => {
+      if(e.target.classList.contains('thanks-again')){
+        location.reload();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
