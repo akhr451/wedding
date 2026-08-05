@@ -631,7 +631,7 @@
       const arr = [];
       snap.forEach(function(child){ arr.push(child.val()); });
       arr.sort((a,b)=>b.score-a.score);
-      renderLeaderboard(arr.slice(0,10));
+      renderLeaderboard(arr.slice(0,5));
     }, function(e){
       console.error('leaderboard listener failed:', e);
       renderLeaderboard([]);
@@ -644,7 +644,7 @@
       listEl.innerHTML = '<li class="empty">まだ記録がありません。最初の挑戦者になろう!</li>';
       return;
     }
-    listEl.innerHTML = arr.slice(0,10).map(item =>
+    listEl.innerHTML = arr.slice(0,5).map(item =>
       `<li><span class="name">${escapeHtml(item.name)}</span><span class="pts">${item.score}</span></li>`
     ).join('');
   }
