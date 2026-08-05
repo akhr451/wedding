@@ -140,7 +140,7 @@
     font-family:var(--serif-en);
     font-style:italic;
     font-weight:500;
-    font-size:clamp(28px,6vw,38px);
+    font-size:clamp(38px,9vw,54px);
     color:var(--ink);
     letter-spacing:.04em;
   }
@@ -161,11 +161,21 @@
     line-height:2;
   }
   .theme-quote:last-of-type{margin-bottom:0;}
+  .theme-quote-highlight{
+    font-size:20px;
+    font-weight:700;
+    color:var(--ink);
+    letter-spacing:.06em;
+  }
   .theme-quote-final{
     margin-top:30px;
     font-size:17px;
     font-weight:600;
     color:var(--ink);
+  }
+  .theme-quote-final .accent{
+    color:var(--orange-deep);
+    font-weight:800;
   }
 
   /* ---------- info card ---------- */
@@ -425,7 +435,7 @@
       大切なあなたと出会い<br>
       たくさんのかけがえのない経験をした
     </div>
-    <div class="theme-quote">
+    <div class="theme-quote theme-quote-highlight">
       今日<br>人生を祝う日
     </div>
     <div class="theme-quote">
@@ -437,7 +447,7 @@
       これまでもこれからも<br>感謝と愛を込めて
     </div>
     <div class="theme-quote theme-quote-final">
-      わたしたちの人生の祝祭へようこそ
+      わたしたちの人生の<span class="accent">祝祭</span>へようこそ
     </div>
   </div>
 </section>
