@@ -82,6 +82,7 @@
     background:rgba(251,248,242,.88);
     gap:10px;
     padding:20px;
+    overflow-y:auto;
   }
   .overlay.hidden{display:none;}
   .overlay .msg-title{
@@ -110,6 +111,8 @@
   .btn:active{transform:translateY(1px);}
   .retry-row{
     display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     gap:10px;
     margin-top:6px;
   }
@@ -121,6 +124,8 @@
   }
   .name-row{
     display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     gap:8px;
     margin-top:8px;
   }
@@ -133,6 +138,7 @@
     background:#fff;
     color:var(--ink);
     width:160px;
+    max-width:52vw;
     outline:none;
   }
   .name-row input:focus{border-color:var(--sage-deep);}
@@ -220,13 +226,50 @@
   .board .name{color:var(--ink);}
   .board .pts{color:var(--sage-deep);font-weight:700;font-family:'Cormorant Garamond', serif;font-style:italic;}
   .board .empty{color:var(--ink-soft);font-size:13px;padding:6px 0;}
+
+  .jump-btn{
+    display:none;
+    width:100%;
+    max-width:760px;
+    margin-top:14px;
+    padding:16px;
+    border-radius:20px;
+    border:none;
+    background:var(--sage-deep);
+    color:#fff;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:17px;
+    font-weight:700;
+    letter-spacing:.05em;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(92,107,79,.28);
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+    user-select:none;
+  }
+  .jump-btn:active{transform:translateY(1px);box-shadow:0 2px 8px rgba(92,107,79,.28);}
+  @media (hover:none) and (pointer:coarse){
+    .jump-btn{display:block;}
+  }
+
+  @media (max-width:600px){
+    body{padding:20px 10px 32px;}
+    .hint{font-size:12px;}
+    .stage{aspect-ratio:4/3;}
+  }
+  @media (max-width:420px){
+    .overlay{padding:14px;gap:8px;}
+    .overlay .msg-title{font-size:18px;}
+    .overlay .msg-sub{font-size:12.5px;}
+    .char-row{gap:14px;}
+  }
 </style>
 </head>
 <body>
 
 <div class="eyebrow">Wedding run</div>
 <h1>晃広 & まどか ウェディングラン</h1>
-<p class="hint">スペースキー・タップでジャンプ。浮いている💐ブーケ・🍾シャンパン・🎁ギフトはジャンプで取ってポイントに、💻仕事・👹喧嘩・💸金欠(遊びすぎ注意)にぶつかるとゲームオーバー</p>
+<p class="hint">スペースキー・タップ・下のジャンプボタンでジャンプ。浮いている💐ブーケ・🍾シャンパン・🎁ギフトはジャンプで取ってポイントに、💻仕事・👹喧嘩・💸金欠(遊びすぎ注意)にぶつかるとゲームオーバー</p>
 
 <div class="stage" id="stage">
   <canvas id="game"></canvas>
@@ -265,6 +308,8 @@
   </div>
 </div>
 
+<button class="jump-btn" id="jumpBtn" type="button">↑ ジャンプ</button>
+
 <div class="score-row">
   <span>スコア: <b id="liveScore">0</b></span>
   <span>自己ベスト: <b id="liveBest">0</b></span>
@@ -292,10 +337,21 @@
 
   const canvas = document.getElementById('game');
   const ctx = canvas.getContext('2d');
-  const W = 800, H = 300;
-  canvas.width = W; canvas.height = H;
+  const stageEl = document.getElementById('stage');
+  let W = 800, H = 300;
+  let groundY = 235;
 
-  const groundY = 235;
+  function resizeCanvas(){
+    const rect = stageEl.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    W = Math.max(200, Math.round(rect.width));
+    H = Math.max(120, Math.round(rect.height));
+    groundY = H - 65;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if(runner.onGround) runner.y = groundY;
+  }
   const colors = {
     ink:'#3E4A3D', sage:'#8C9C7E', sageDeep:'#5C6B4F',
     rose:'#D9A6A0', roseDeep:'#B97D77', gold:'#C6A25B', ivoryDeep:'#F3EBDD'
@@ -703,20 +759,34 @@
     });
   });
 
-  document.getElementById('stage').addEventListener('pointerdown', (e)=>{
+  function tryJump(){
     if(!selectedChar) return;
     if(document.getElementById('overOverlay').classList.contains('hidden')===false) return;
     jump();
+  }
+
+  document.getElementById('stage').addEventListener('pointerdown', (e)=>{
+    tryJump();
+  });
+  document.getElementById('jumpBtn').addEventListener('pointerdown', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    tryJump();
   });
   window.addEventListener('keydown', (e)=>{
     if(e.code === 'Space' || e.code === 'ArrowUp'){
       e.preventDefault();
-      if(!selectedChar) return;
-      if(document.getElementById('overOverlay').classList.contains('hidden')===false) return;
-      jump();
+      tryJump();
     }
   });
 
+  let resizeTimer = null;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resizeCanvas, 200);
+  });
+
+  resizeCanvas();
   loadBest();
   subscribeLeaderboard();
   render();
