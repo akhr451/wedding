@@ -17,6 +17,7 @@ function doPost(e) {
 
     if (data.type === 'photo') return handlePhoto(data);
     if (data.type === 'message') return handleMessage(data);
+    if (data.type === 'survey') return handleSurvey(data);
     return respond({ result: 'error', message: 'unknown type' });
   } catch (err) {
     return respond({ result: 'error', message: String(err) });
@@ -72,6 +73,33 @@ function handleMessage(data) {
     new Date(),
     (data.name || '').toString().slice(0, 50),
     msg
+  ]);
+  return respond({ result: 'success' });
+}
+
+function handleSurvey(data) {
+  if (!checkRateLimit()) {
+    return respond({ result: 'error', message: '少し時間をおいてお試しください' });
+  }
+
+  const q1 = (data.q1 || '').toString().slice(0, 300);
+  const q2 = (data.q2 || '').toString().slice(0, 300);
+  const q3 = (data.q3 || '').toString().slice(0, 300);
+  const q4 = (data.q4 || '').toString().slice(0, 300);
+  const q5 = (data.q5 || '').toString().slice(0, 300);
+  if (![q1, q2, q3, q4, q5].some(a => a.trim())) {
+    return respond({ result: 'error', message: 'empty survey' });
+  }
+
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Survey');
+  sheet.appendRow([
+    new Date(),
+    (data.name || '').toString().slice(0, 50),
+    q1,
+    q2,
+    q3,
+    q4,
+    q5
   ]);
   return respond({ result: 'success' });
 }

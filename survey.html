@@ -80,27 +80,132 @@
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
 
-  /* ---------- notice ---------- */
+  /* ---------- notice / share card ---------- */
   .notice{
     background:linear-gradient(135deg, rgba(232,167,104,.14), rgba(127,165,194,.10));
     border-radius:22px;
-    padding:40px 28px;
+    padding:32px 28px;
     text-align:center;
   }
   .notice p{margin:0;font-size:14.5px;color:var(--ink-soft);}
   .notice .notice-title{
     font-family:var(--serif-jp);
     font-weight:600;
-    font-size:18px;
+    font-size:17px;
     color:var(--ink);
     margin-bottom:10px;
   }
-  .notice-icon{
-    width:34px;height:34px;
-    margin:0 auto 16px;
+
+  .share-card{text-align:left;}
+  .share-card p{margin:0 0 20px;font-size:14.5px;color:var(--ink-soft);}
+  .share-form{margin-top:4px;}
+  .field-label{
+    display:block;
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-size:13px;
     color:var(--blue-deep);
+    letter-spacing:.05em;
+    margin:16px 0 6px;
   }
-  .notice-icon svg{width:100%;height:100%;}
+  .question-block{margin-top:28px;}
+  .question-block:first-of-type{margin-top:20px;}
+  .question-label{
+    display:block;
+    font-family:var(--sans-jp);
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--ink);
+    margin-bottom:8px;
+    line-height:1.6;
+  }
+  .question-number{
+    font-family:var(--serif-en);
+    font-style:italic;
+    color:var(--orange-deep);
+    margin-right:4px;
+  }
+  .text-input, .textarea-input{
+    display:block;
+    width:100%;
+    border:none;
+    border-bottom:1px solid rgba(127,165,194,.4);
+    background:transparent;
+    font-family:var(--sans-jp);
+    font-size:15px;
+    color:var(--ink);
+    padding:9px 2px;
+    outline:none;
+    transition:border-color .2s ease;
+  }
+  .text-input:focus, .textarea-input:focus{border-bottom-color:var(--orange-deep);}
+  .textarea-input{resize:vertical;min-height:56px;line-height:1.7;}
+  .char-count{
+    text-align:right;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+  .submit-btn{
+    margin-top:26px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    border-radius:999px;
+    padding:14px 32px;
+    background:var(--blue-deep);
+    color:#fff;
+    font-family:var(--sans-jp);
+    font-size:14.5px;
+    font-weight:700;
+    letter-spacing:.03em;
+    cursor:pointer;
+    transition:background .2s ease, opacity .2s ease;
+  }
+  .submit-btn:hover{background:var(--orange-deep);}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+  .spinner{
+    width:14px;height:14px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.4);
+    border-top-color:#fff;
+    animation:spin .8s linear infinite;
+    display:inline-block;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .form-status{
+    margin-top:14px;
+    font-size:13.5px;
+    min-height:1.2em;
+  }
+  .form-status.is-error{color:var(--orange-deep);}
+  .form-status.is-success{color:var(--blue-deep);}
+  .thanks-title{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:17px;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .thanks-again{
+    display:inline-block;
+    margin-top:10px;
+    font-size:13px;
+    color:var(--blue-deep);
+    text-decoration:underline;
+    cursor:pointer;
+    background:none;border:none;padding:0;
+    font-family:var(--sans-jp);
+  }
+  .honeypot-field{
+    position:absolute;
+    left:-9999px;
+    top:-9999px;
+    width:1px;height:1px;
+    overflow:hidden;
+  }
+  .share-form[data-state="loading"] fieldset{opacity:.6;pointer-events:none;}
 
   footer{
     text-align:center;
@@ -139,14 +244,50 @@
   <div class="wrap">
     <div class="eyebrow">Survey</div>
     <h2>アンケート回答</h2>
-    <p class="lead">結婚式に関するアンケートをご用意する予定です。</p>
+    <p class="lead">お二人のことを教えてください。答えられる質問だけで大丈夫です。</p>
 
-    <div class="notice">
-      <div class="notice-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8a1 1 0 0 1 1 1v1h1a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1V4a1 1 0 0 1 1-1z"/><path d="M9 3v3h6V3"/><path d="M8.5 12.5l2 2 4.5-4.5"/></svg>
-      </div>
-      <div class="notice-title">現在準備中です</div>
-      <p>アンケートは近日公開予定です。決まり次第、こちらのページとLINEにてご案内いたします。<br>もうしばらくお待ちください。</p>
+    <div class="notice share-card" id="answer-survey">
+      <form class="share-form" id="survey-form" data-state="idle" novalidate>
+        <fieldset style="border:none;padding:0;margin:0;">
+          <input type="text" name="website" class="honeypot-field" tabindex="-1" autocomplete="off">
+
+          <label class="field-label" for="survey-name">お名前(任意)</label>
+          <input type="text" class="text-input" id="survey-name" maxlength="50" placeholder="例:山田太郎">
+
+          <div class="question-block">
+            <label class="question-label" for="survey-q1"><span class="question-number">Q1.</span>新郎or新婦と初めて会った時の印象は?</label>
+            <textarea class="textarea-input" id="survey-q1" maxlength="300" rows="3"></textarea>
+            <div class="char-count"><span id="survey-q1-count">0</span>/300</div>
+          </div>
+
+          <div class="question-block">
+            <label class="question-label" for="survey-q2"><span class="question-number">Q2.</span>新郎or新婦との思い出に残っているエピソードは?</label>
+            <textarea class="textarea-input" id="survey-q2" maxlength="300" rows="3"></textarea>
+            <div class="char-count"><span id="survey-q2-count">0</span>/300</div>
+          </div>
+
+          <div class="question-block">
+            <label class="question-label" for="survey-q3"><span class="question-number">Q3.</span>新郎or新婦を一言で表すならどんな人?</label>
+            <textarea class="textarea-input" id="survey-q3" maxlength="300" rows="3"></textarea>
+            <div class="char-count"><span id="survey-q3-count">0</span>/300</div>
+          </div>
+
+          <div class="question-block">
+            <label class="question-label" for="survey-q4"><span class="question-number">Q4.</span>2人の結婚生活はどんなふうになると思う?</label>
+            <textarea class="textarea-input" id="survey-q4" maxlength="300" rows="3"></textarea>
+            <div class="char-count"><span id="survey-q4-count">0</span>/300</div>
+          </div>
+
+          <div class="question-block">
+            <label class="question-label" for="survey-q5"><span class="question-number">Q5.</span>2人に聞きたいことは?</label>
+            <textarea class="textarea-input" id="survey-q5" maxlength="300" rows="3"></textarea>
+            <div class="char-count"><span id="survey-q5-count">0</span>/300</div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="survey-submit">回答を送る</button>
+          <div class="form-status" id="survey-status" role="status"></div>
+        </fieldset>
+      </form>
     </div>
   </div>
 </section>
@@ -165,6 +306,90 @@
     });
   }, {threshold:.15});
   revealEls.forEach(el=>io.observe(el));
+
+  // ---- survey ----
+  (function(){
+    const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzQYXI-xxTIASjtIlWBUDKxjOyqhFsM8ps0JKjRHNlcu5Ru-QXDOBFYA4iiQ1ditvVI/exec";
+    const QUESTION_IDS = ['survey-q1','survey-q2','survey-q3','survey-q4','survey-q5'];
+
+    async function postToGAS(payload){
+      const res = await fetch(GAS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if(json.result !== 'success'){ throw new Error(json.message || '送信に失敗しました'); }
+      return json;
+    }
+
+    function setStatus(el, message, kind){
+      el.textContent = message || '';
+      el.classList.remove('is-error','is-success');
+      if(kind) el.classList.add(kind === 'error' ? 'is-error' : 'is-success');
+    }
+
+    function showThanks(form, title){
+      form.innerHTML =
+        '<div class="thanks-title">' + title + '</div>' +
+        '<p style="margin:0;font-size:14px;color:var(--ink-soft);">ご協力ありがとうございます。</p>' +
+        '<button type="button" class="thanks-again">もう一度回答する</button>';
+      form.dataset.state = 'success';
+    }
+
+    // ---- char counters ----
+    QUESTION_IDS.forEach((id) => {
+      const input = document.getElementById(id);
+      const count = document.getElementById(id + '-count');
+      if(input && count){
+        input.addEventListener('input', () => { count.textContent = input.value.length; });
+      }
+    });
+
+    // ---- survey form ----
+    const surveyForm = document.getElementById('survey-form');
+    if(surveyForm){
+      surveyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const statusEl = document.getElementById('survey-status');
+        const answers = QUESTION_IDS.map(id => document.getElementById(id).value.trim());
+        if(!answers.some(a => a)){
+          setStatus(statusEl, 'いずれかの質問にご回答ください。', 'error');
+          return;
+        }
+        const submitBtn = document.getElementById('survey-submit');
+        surveyForm.dataset.state = 'loading';
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner"></span> 送信中…';
+        setStatus(statusEl, '', null);
+        try{
+          await postToGAS({
+            type: 'survey',
+            name: document.getElementById('survey-name').value,
+            q1: answers[0],
+            q2: answers[1],
+            q3: answers[2],
+            q4: answers[3],
+            q5: answers[4],
+            website: surveyForm.website.value
+          });
+          showThanks(surveyForm, 'ご回答ありがとうございます');
+        }catch(err){
+          surveyForm.dataset.state = 'idle';
+          submitBtn.disabled = false;
+          submitBtn.textContent = '回答を送る';
+          setStatus(statusEl, '送信に失敗しました。電波の良い場所でもう一度お試しください。', 'error');
+        }
+      });
+    }
+
+    // ---- "answer again" (event delegation, since form gets replaced with thanks markup) ----
+    document.addEventListener('click', (e) => {
+      if(e.target.classList.contains('thanks-again')){
+        location.reload();
+      }
+    });
+  })();
 </script>
 
 </body>

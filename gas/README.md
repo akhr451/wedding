@@ -1,13 +1,14 @@
-# 写真・メッセージ収集バックエンド セットアップ手順
+# 写真・メッセージ・アンケート収集バックエンド セットアップ手順
 
-`index.html` の「写真を送る」「メッセージを送る」フォームは、Google Apps Script の Web App(`Code.gs`)にPOSTし、Googleスプレッドシート+Googleドライブにデータを蓄積します。
+`photo.html`「写真を送る」・`message.html`「メッセージを送る」・`survey.html`「アンケート回答」の各フォームは、Google Apps Script の Web App(`Code.gs`)にPOSTし、Googleスプレッドシート+Googleドライブにデータを蓄積します。
 
 ## 1. スプレッドシートを作成
 
-新規Googleスプレッドシートを作成し、以下2つのシート(タブ)を用意する。
+新規Googleスプレッドシートを作成し、以下3つのシート(タブ)を用意する。
 
 - `Photos` シート:ヘッダー行 `Timestamp | Name | Caption | File URL | File ID`
 - `Messages` シート:ヘッダー行 `Timestamp | Name | Message`
+- `Survey` シート:ヘッダー行 `Timestamp | Name | Q1_初めて会った時の印象 | Q2_思い出のエピソード | Q3_一言で表すと | Q4_2人の結婚生活 | Q5_2人に聞きたいこと`
 
 ## 2. Googleドライブにフォルダを作成
 
@@ -41,9 +42,9 @@ https://drive.google.com/drive/folders/【ここがフォルダID】
 4. 「デプロイ」をクリック。初回は権限承認が必要で、「確認されていないアプリです」という警告が出るが、自分が作ったスクリプトなので「詳細 → (プロジェクト名)に移動(安全ではないページ)」で進めて問題ない
 5. 発行された `https://script.google.com/macros/s/.../exec` で終わるURLをコピー
 
-## 6. `index.html` にURLを設定
+## 6. 各ページにURLを設定
 
-`index.html` 内の以下の行を、手順5で発行されたURLに書き換える。
+`photo.html`・`message.html`・`survey.html` それぞれの中にある以下の行を、手順5で発行されたURLに書き換える(3ファイルとも同じ値)。
 
 ```js
 const GAS_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
@@ -51,7 +52,7 @@ const GAS_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 ## 7. 動作確認
 
-スマホ実機のブラウザ(またはLINEアプリ内ブラウザ)で公開後のサイトを開き、写真送信・メッセージ送信の両方を実際に試す。スプレッドシートの `Photos`/`Messages` シートとDriveフォルダに反映されることを確認する。
+スマホ実機のブラウザ(またはLINEアプリ内ブラウザ)で公開後のサイトを開き、写真送信・メッセージ送信・アンケート回答をすべて実際に試す。スプレッドシートの `Photos`/`Messages`/`Survey` シートとDriveフォルダに反映されることを確認する。
 
 ## 今後コードを修正するとき
 
