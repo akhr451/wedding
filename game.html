@@ -626,17 +626,16 @@
     document.getElementById('liveBest').textContent = best;
   }
 
-  async function loadLeaderboard(){
-    try{
-      const snap = await db.ref('leaderboard').once('value');
+  function subscribeLeaderboard(){
+    db.ref('leaderboard').on('value', function(snap){
       const arr = [];
-      snap.forEach(child => arr.push(child.val()));
+      snap.forEach(function(child){ arr.push(child.val()); });
       arr.sort((a,b)=>b.score-a.score);
       renderLeaderboard(arr.slice(0,10));
-    }catch(e){
-      console.error('loadLeaderboard failed:', e);
+    }, function(e){
+      console.error('leaderboard listener failed:', e);
       renderLeaderboard([]);
-    }
+    });
   }
 
   function renderLeaderboard(arr){
@@ -662,7 +661,6 @@
 
     try{
       await db.ref('leaderboard').push({ name, score: s, ts: Date.now() });
-      await loadLeaderboard();
       nameInput.value = '';
       nameInput.placeholder = 'お名前(ランキング用)';
       submitMsg.textContent = '記録が登録されました!';
@@ -720,7 +718,7 @@
   });
 
   loadBest();
-  loadLeaderboard();
+  subscribeLeaderboard();
   render();
   requestAnimationFrame(loop);
 })();

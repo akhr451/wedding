@@ -61,9 +61,25 @@ Realtime Database の「ルール」タブで、テストモードのルール(�
 
 `name`/`score`/`ts`をワイルカード(`$other`)より先に個別指定しているのがポイント。Realtime Databaseのルールはワイルドカードより完全一致する子キー名のルールが優先されるため、こう書かないと`$other`が`name`などの正規フィールドにも一致して書き込みが拒否されてしまう。
 
-### `orderByChild`/`limitToLast`を使わない理由
+### 実装メモ:ランキングが常に1件しか表示されなかった不具合
 
-当初は`game.html`側で`orderByChild('score').limitToLast(10)`を使ってFirebase側で絞り込む実装にしていたが、動作検証中にこのクエリだけデータ件数が増えると正しい件数を返さない不具合(`.indexOn`を追加しても解消せず)が繰り返し発生した。原因の完全な特定はできなかったが、単純な全件取得(`.once('value')`、こちらは常に正しく全件返ってきた)は問題なく動作したため、`game.html`では全件取得してJavaScript側でソート・上位10件への絞り込みを行う実装に変更している。ゲスト向けの小規模なランキングであり件数がごく少数のため、この方式で性能上の問題はない。
+動作検証中、データ自体はFirebaseに正しく複数件保存されているのに、`game.html`の画面には常に(スコアが一番高い、一番古い)1件しか表示されない不具合が発生した。
+
+`orderByChild('score').limitToLast(10)`のクエリや`.indexOn`未設定を疑って色々試したが無関係で、実際の原因はもっと単純なJavaScriptのバグだった。
+
+```js
+snap.forEach(child => arr.push(child.val()));
+```
+
+`Array.prototype.push()`は配列の**新しい長さ**(数値)を返す。そのため上のアロー関数は暗黙的にその数値(1件目なら`1`)を返してしまう。ところがFirebaseの`DataSnapshot.forEach()`は「コールバックがtruthyな値を返したら列挙を打ち切る」という独自仕様を持つため、1件pushした時点で`forEach`が終了してしまい、常に最初の子要素しか処理されていなかった。
+
+修正は`push()`の戻り値を返さないようにするだけでよい。
+
+```js
+snap.forEach(function(child){ arr.push(child.val()); });
+```
+
+あわせて、一回きりの`.once('value')`ではなく常時購読の`.on('value')`に変更した(`subscribeLeaderboard()`)。これによりランキングは他のゲストの登録も含めて画面を開いたままリアルタイムに更新される。
 
 ## 6. 動作確認
 
