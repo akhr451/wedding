@@ -15,6 +15,10 @@
     --blue-deep:#3B5B78;
     --orange:#E8A768;
     --orange-deep:#C97D3E;
+    --bordeaux:#7A2E33;
+    --terracotta:#C1694F;
+    --mustard:#D9A441;
+    --khaki:#8A8C5D;
     --ink:#263241;
     --ink-soft:#5c6b7a;
     --line-green:#06C755;
@@ -141,9 +145,10 @@
     font-style:italic;
     font-weight:500;
     font-size:clamp(38px,9vw,54px);
-    color:var(--ink);
+    color:var(--blue-deep);
     letter-spacing:.04em;
   }
+  .theme-title-en .accent{color:var(--bordeaux);}
   .theme-title-jp{
     display:block;
     font-family:var(--serif-jp);
@@ -272,6 +277,31 @@
     font-size:17px;
     color:var(--ink);
     margin-bottom:10px;
+  }
+
+  /* ---------- color palette (dress code) ---------- */
+  .color-palette{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin:28px 0 8px;
+  }
+  .color-swatch{text-align:center;}
+  .color-chip{
+    width:52px;height:52px;
+    border-radius:50%;
+    margin:0 auto 10px;
+    box-shadow:inset 0 0 0 1px rgba(38,50,65,.1), 0 6px 14px rgba(38,50,65,.12);
+  }
+  .color-name{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:13px;
+    color:var(--ink);
+    letter-spacing:.02em;
+  }
+  @media (max-width:420px){
+    .color-palette{grid-template-columns:repeat(2,1fr);row-gap:24px;}
   }
 
   /* ---------- share nav (links to photo.html / message.html) ---------- */
@@ -422,7 +452,7 @@
   <div class="wrap">
     <div class="eyebrow">Wedding Theme</div>
     <div class="theme-title">
-      <span class="theme-title-en">Shukusai</span>
+      <span class="theme-title-en">Shukus<span class="accent">ai</span></span>
       <span class="theme-title-jp">〜 人生を祝う 〜</span>
     </div>
 
@@ -523,7 +553,7 @@
         </div>
       </div>
       <div class="t-item">
-        <div class="t-node"><div class="t-dot"></div><div class="t-time">16:00</div></div>
+        <div class="t-node"><div class="t-dot"></div><div class="t-time">16:30</div></div>
         <div class="t-body">
           <div class="t-title">お開き</div>
           <div class="t-desc">お見送りをもって終了となります。</div>
@@ -538,9 +568,29 @@
   <div class="wrap">
     <div class="eyebrow">Dress Code</div>
     <h2>服装について</h2>
+    <p class="lead">以下の色をコーディネートに含めて来てください !!</p>
+
+    <div class="color-palette">
+      <div class="color-swatch">
+        <div class="color-chip" style="background:var(--bordeaux);"></div>
+        <div class="color-name">ワインレッド</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-chip" style="background:var(--terracotta);"></div>
+        <div class="color-name">テラコッタ</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-chip" style="background:var(--mustard);"></div>
+        <div class="color-name">マスタード</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-chip" style="background:var(--khaki);"></div>
+        <div class="color-name">カーキ</div>
+      </div>
+    </div>
+
     <div class="notice">
-      <div class="notice-title">近日中にお知らせします</div>
-      <p>服装コードは現在調整中です。決まり次第、こちらのページとLINEにてご案内いたします。<br>もうしばらくお待ちください。</p>
+      <p>ネクタイ、ヘアアクセ、ポケットチーフ、ベルト、<br>靴、小物、シャツ、ベストなど、取り入れ方は自由です。<br>もちろんドレスやスーツでのご参加もOKです♪</p>
     </div>
   </div>
 </section>
@@ -627,7 +677,7 @@
   <div class="wrap">
     <div class="eyebrow">Stay Connected</div>
     <h2>LINEで最新情報をお届け</h2>
-    <p class="lead">当日のご案内や写真の共有は、公式LINEアカウントで行います。ぜひ友だち追加をお願いします。</p>
+    <p class="lead">当日のご案内や写真の共有は、公式LINEアカウントで行います。必ず友だち追加をお願いします。</p>
 
     <div class="line-card">
       <a class="line-btn" href="#" id="line-add-btn" target="_blank" rel="noopener">

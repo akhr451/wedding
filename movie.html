@@ -80,6 +80,30 @@
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
 
+  /* ---------- video ---------- */
+  .video-title{
+    font-family:var(--serif-jp);
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    margin:0 0 14px;
+  }
+  .video-wrap{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    border-radius:22px;
+    overflow:hidden;
+    background:var(--ink);
+    box-shadow:0 18px 40px rgba(38,50,65,.16);
+  }
+  .video-wrap iframe{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    border:0;
+  }
+
   /* ---------- notice ---------- */
   .notice{
     background:linear-gradient(135deg, rgba(232,167,104,.14), rgba(127,165,194,.10));
@@ -148,14 +172,11 @@
   <div class="wrap">
     <div class="eyebrow">Movie</div>
     <h2>動画</h2>
-    <p class="lead">どんな動画が公開されるかはお楽しみに!</p>
+    <p class="lead">ぜひご覧ください。</p>
 
-    <div class="notice">
-      <div class="notice-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></svg>
-      </div>
-      <div class="notice-title">現在準備中です</div>
-      <p>動画は近日公開予定です。公開され次第こちらのページとLINEにてご案内いたします。<br>もうしばらくお待ちください。</p>
+    <div class="video-title">Save the Date! ①</div>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/euXap4Y-m4Q" title="Save the Date! ①" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
 
     <a class="hub-link" href="fun.html">&larr; お楽しみコンテンツ に戻る</a>
